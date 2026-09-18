@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swasti Shukla — Proof of Work</title>
+<meta name="description" content="Portfolio of Swasti Shukla — creative and growth strategist. Podcast, short-form and creator campaign work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:        #F3F5F4;
+    --bg-2:      #FFFFFF;
+    --ink:       #0B0D0C;
+    --ink-2:     rgba(11,13,12,0.78);
+    --ink-3:     rgba(11,13,12,0.55);
+    --muted:     rgba(11,13,12,0.38);
+    --line:      rgba(11,13,12,0.12);
+    --line-2:    rgba(11,13,12,0.2);
+    --card:      #FFFFFF;
+    --purple:    #8B85D6;
+    --purple-ink:#181456;
+    --purple-soft: rgba(172,168,234,0.16);
+    --gold:      #9C7A1E;
+    --gold-soft: rgba(156,122,30,0.12);
+    --shadow:    0 16px 34px -24px rgba(11,13,12,0.25);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:        #0A0C0B;
+      --bg-2:      #111413;
+      --ink:       #F2F4F3;
+      --ink-2:     rgba(242,244,243,0.82);
+      --ink-3:     rgba(242,244,243,0.58);
+      --muted:     rgba(242,244,243,0.36);
+      --line:      rgba(242,244,243,0.1);
+      --line-2:    rgba(242,244,243,0.18);
+      --card:      #131817;
+      --purple:    #ACA8EA;
+      --purple-ink:#181456;
+      --purple-soft: rgba(172,168,234,0.18);
+      --gold:      #F2C14E;
+      --gold-soft: rgba(242,193,78,0.12);
+      --shadow:    0 16px 34px -24px rgba(0,0,0,0.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:        #0A0C0B;
+    --bg-2:      #111413;
+    --ink:       #F2F4F3;
+    --ink-2:     rgba(242,244,243,0.82);
+    --ink-3:     rgba(242,244,243,0.58);
+    --muted:     rgba(242,244,243,0.36);
+    --line:      rgba(242,244,243,0.1);
+    --line-2:    rgba(242,244,243,0.18);
+    --card:      #131817;
+    --purple:    #ACA8EA;
+    --purple-ink:#181456;
+    --purple-soft: rgba(172,168,234,0.18);
+    --gold:      #F2C14E;
+    --gold-soft: rgba(242,193,78,0.12);
+    --shadow:    0 16px 34px -24px rgba(0,0,0,0.7);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  html.is-locked{ overflow:hidden; }
+  ::selection{ background:var(--purple); color:var(--purple-ink); }
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope', -apple-system, 'Segoe UI', sans-serif;
+    font-weight:400;
+    font-size:15.5px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    padding:0 max(16px, calc((100vw - 1180px)/2));
+    position:relative;
+  }
+
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums; }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  /* ============ CLAPPERBOARD COLD OPEN ============ */
+  .slate-overlay{
+    position:fixed; inset:0; z-index:200;
+    display:grid; place-items:center;
+    background:var(--bg);
+    padding:20px;
+  }
+  .slate-overlay.is-out{ animation:slateOut 620ms cubic-bezier(.6,.05,.3,1) forwards; }
+  @keyframes slateOut{
+    0%{ opacity:1; transform:translateY(0); }
+    100%{ opacity:0; transform:translateY(-14%); visibility:hidden; }
+  }
+  .slate-overlay.is-gone{ display:none; }
+
+  .slate{
+    width:min(560px, 92vw);
+    transform:scale(.94) translateY(10px); opacity:0;
+    animation:slateIn 520ms cubic-bezier(.2,.7,.2,1) 60ms forwards;
+    transform-origin:center;
+  }
+  @keyframes slateIn{ to{ transform:scale(1) translateY(0); opacity:1; } }
+  .slate.is-snap{ animation:slateShake 300ms cubic-bezier(.36,.07,.19,.97); }
+  @keyframes slateShake{
+    0%{ transform:translate(0,0) rotate(0); }
+    18%{ transform:translate(-7px,4px) rotate(-.8deg); }
+    38%{ transform:translate(6px,-3px) rotate(.6deg); }
+    58%{ transform:translate(-4px,2px) rotate(-.35deg); }
+    78%{ transform:translate(2px,-1px) rotate(.15deg); }
+    100%{ transform:translate(0,0) rotate(0); }
+  }
+
+  .slate-stick{
+    height:clamp(44px,8vw,58px);
+    border-radius:8px 8px 3px 3px;
+    border:2px solid var(--ink);
+    background:var(--bg-2);
+    overflow:hidden;
+    transform-origin:14px bottom;
+    transform:rotate(-26deg);
+    transition:transform 170ms cubic-bezier(.7,0,.9,.4);
+    position:relative; z-index:2;
+    box-shadow:0 8px 20px -14px rgba(0,0,0,.6);
+  }
+  .slate-stick.is-down{ transform:rotate(0deg); }
+  .stripes{
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(112deg,
+      var(--ink) 0 26px,
+      var(--bg-2) 26px 52px);
+  }
+
+  .slate-base{
+    margin-top:5px;
+    border:2px solid var(--ink);
+    border-radius:3px 3px 10px 10px;
+    background:var(--card);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .slate-rows{ padding:clamp(14px,2.4vw,20px) clamp(16px,2.6vw,22px); display:flex; flex-direction:column; gap:0; }
+  .slate-row{
+    display:grid; grid-template-columns:86px 1fr;
+    gap:12px; align-items:baseline;
+    padding:9px 0; border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;
+  }
+  .slate-row:last-child{ border-bottom:none; }
+  .slate-row .k{ font-size:9.5px; letter-spacing:.14em; color:var(--muted); text-transform:uppercase; }
+  .slate-row .v{ font-size:clamp(12px,1.6vw,14px); font-weight:700; letter-spacing:.04em; color:var(--ink); text-transform:uppercase; }
+  .slate-row .v em{ font-style:normal; color:var(--purple); }
+  .slate-split{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .slate-split .slate-row{ border-bottom:none; padding-bottom:0; grid-template-columns:52px 1fr; }
+
+  .slate-flash{
+    position:fixed; inset:0; background:var(--purple);
+    opacity:0; pointer-events:none; z-index:201;
+  }
+  .slate-flash.is-on{ animation:flash 300ms ease-out; }
+  @keyframes flash{ 0%{ opacity:0; } 12%{ opacity:.85; } 100%{ opacity:0; } }
+
+  .slate-action{
+    margin-top:22px; text-align:center;
+    font-family:'JetBrains Mono',monospace; font-size:11.5px;
+    letter-spacing:.3em; text-transform:uppercase; color:var(--purple);
+    opacity:0; font-weight:700;
+  }
+  .slate-action.is-on{ animation:actionIn 420ms cubic-bezier(.2,.7,.2,1) forwards; }
+  @keyframes actionIn{ from{ opacity:0; letter-spacing:.5em; } to{ opacity:1; letter-spacing:.3em; } }
+
+  .slate-skip{
+    position:fixed; bottom:26px; right:26px;
+    font-family:'JetBrains Mono',monospace; font-size:10.5px;
+    letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); background:transparent;
+    border:1px solid var(--line-2); border-radius:999px;
+    padding:8px 14px; cursor:pointer; transition:color .2s,border-color .2s;
+  }
+  .slate-skip:hover{ color:var(--ink); border-color:var(--purple); }
+
+  @media (prefers-reduced-motion: reduce){
+    .slate-overlay, .slate, .slate-stick, .slate-flash, .slate-action{ animation:none !important; transition:none !important; }
+  }
+
+  /* reveal after the clap */
+  .page{ opacity:0; }
+  .page.is-live{ animation:pageIn 620ms cubic-bezier(.2,.7,.2,1) forwards; }
+  @keyframes pageIn{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce){ .page{ opacity:1; } .page.is-live{ animation:none; } }
+
+  .progress{ position:fixed; top:0; left:0; height:3px; width:0; background:var(--purple); z-index:100; transition:width 90ms linear; box-shadow:0 0 10px var(--purple); }
+  @media (prefers-reduced-motion: reduce){ .progress{ transition:none; } }
+
+  /* ---------- top nav ---------- */
+  .topnav{
+    position:sticky; top:0; z-index:50;
+    margin:0 calc(-1 * max(16px, calc((100vw - 1180px)/2)));
+    padding:0 max(16px, calc((100vw - 1180px)/2));
+    background:color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .topnav-inner{ max-width:1180px; margin:0 auto; padding:16px 0; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .wordmark{ display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:.02em; }
+  .wordmark .mark{ width:24px; height:24px; border-radius:7px; display:grid; place-items:center; font-size:12px; font-weight:800; color:var(--purple-ink); background:var(--purple); }
+  .topnav nav{ display:flex; gap:clamp(14px,2.2vw,26px); font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.1em; }
+  .topnav nav a{ color:var(--ink-3); text-decoration:none; position:relative; padding:4px 0; transition:color .2s; }
+  .topnav nav a::after{ content:""; position:absolute; left:0; bottom:0; height:2px; width:0; background:var(--purple); transition:width .3s cubic-bezier(.2,.7,.2,1); }
+  .topnav nav a:hover{ color:var(--ink); }
+  .topnav nav a:hover::after{ width:100%; }
+
+  @media (max-width:620px){
+    .topnav-inner{ gap:12px; padding:14px 0; }
+    .topnav nav{
+      order:3; width:100%;
+      flex-wrap:nowrap; overflow-x:auto; gap:20px;
+      scrollbar-width:none; -ms-overflow-style:none;
+      -webkit-overflow-scrolling:touch; padding-bottom:2px;
+    }
+    .topnav nav::-webkit-scrollbar{ display:none; }
+    .topnav nav a{ white-space:nowrap; }
+  }
+
+  .badge{
+    display:inline-flex; align-items:center; gap:7px; padding:6px 12px; border-radius:999px;
+    border:1px solid var(--line-2); background:var(--card); font-family:'JetBrains Mono',monospace; font-size:11px;
+    color:var(--ink-2); letter-spacing:.04em; white-space:nowrap; box-shadow:var(--shadow); text-decoration:none;
+  }
+  .badge .dot{ position:relative; width:7px; height:7px; border-radius:999px; background:var(--purple); }
+  .badge .dot::after{ content:""; position:absolute; inset:-3px; border-radius:999px; background:var(--purple); opacity:.45; animation:pulse 2s cubic-bezier(0,0,.2,1) infinite; }
+  @keyframes pulse{ 0%{ transform:scale(.8); opacity:.55; } 80%,100%{ transform:scale(2.2); opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .badge .dot::after{ animation:none; } }
+
+  .shell{ max-width:1180px; margin:0 auto; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:clamp(46px,7vw,84px) 0 clamp(38px,6vw,68px); border-bottom:1px solid var(--line); }
+  .hero-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:clamp(30px,5vw,56px); align-items:start; }
+  @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; } }
+  .eyebrow{ display:inline-flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.16em; color:var(--purple); margin-bottom:20px; font-weight:600; }
+  .eyebrow::before{ content:"//"; color:var(--muted); }
+  h1.name{
+    font-family:'Unbounded', sans-serif; font-weight:700; font-size:clamp(38px,5.6vw,68px);
+    line-height:1.04; letter-spacing:-.02em; color:var(--ink); text-transform:uppercase;
+  }
+  h1.name .hl{ color:var(--purple); }
+  .tagline{ margin-top:26px; font-size:clamp(18px,2vw,23px); font-weight:700; line-height:1.42; letter-spacing:-.01em; max-width:600px; color:var(--ink-2); }
+  .tagline .hl2{ color:var(--gold); }
+  .lede{ margin-top:22px; font-size:clamp(14.5px,1.05vw,16px); line-height:1.72; color:var(--ink-3); max-width:560px; }
+  .lede strong{ color:var(--ink); font-weight:700; }
+  .hero-cta{ margin-top:28px; display:flex; gap:10px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:10px;
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;
+    text-decoration:none; font-weight:700; border:1px solid var(--line-2); transition:all .2s;
+  }
+  .btn-primary{ background:var(--purple); color:var(--purple-ink); border-color:var(--purple); }
+  .btn-primary:hover{ filter:brightness(1.07); transform:translateY(-2px); }
+  .btn-ghost{ background:var(--card); color:var(--ink-2); }
+  .btn-ghost:hover{ border-color:var(--purple); color:var(--ink); transform:translateY(-2px); }
+
+  .panel{ border:1px solid var(--line-2); border-radius:16px; padding:clamp(20px,2.2vw,28px); background:var(--card); box-shadow:var(--shadow); }
+  .panel-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+  .panel-label{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-3); letter-spacing:.1em; text-transform:uppercase; }
+  .panel-count{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); }
+  .panel-feature-tag{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--gold); letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px; display:block; }
+  .panel-feature-title{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(19px,2vw,24px); letter-spacing:-.01em; }
+  .panel-feature-sub{ margin-top:10px; font-size:13.5px; color:var(--ink-3); line-height:1.6; }
+  .panel-foot{ margin-top:20px; padding-top:18px; border-top:1px solid var(--line); color:var(--ink-3); font-size:13px; line-height:1.65; }
+  .panel-foot strong{ color:var(--ink); font-weight:700; }
+
+  /* ---------- marquee ---------- */
+  .marquee{ overflow:hidden; border-bottom:1px solid var(--line); padding:16px 0; margin:0 calc(-1 * max(16px, calc((100vw - 1180px)/2))); }
+  .marquee-track{ display:flex; gap:38px; width:max-content; animation:scroll 42s linear infinite; }
+  .marquee:hover .marquee-track{ animation-play-state:paused; }
+  @keyframes scroll{ to{ transform:translateX(-50%); } }
+  .marquee-item{ font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); white-space:nowrap; display:flex; align-items:center; gap:38px; }
+  .marquee-item::after{ content:"◆"; color:var(--purple); font-size:7px; }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; flex-wrap:wrap; width:auto; } }
+
+  /* ---------- stats ---------- */
+  .stats{ padding:clamp(38px,5.2vw,60px) 0; border-bottom:1px solid var(--line); scroll-margin-top:70px; }
+  .stats-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .stat{ border:1px solid var(--line); border-radius:14px; padding:clamp(18px,2vw,24px); background:var(--card); box-shadow:var(--shadow); position:relative; transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .2s; }
+  .stat:hover{ transform:translateY(-3px); border-color:var(--purple); }
+  .stat-num{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(26px,3vw,36px); line-height:1; color:var(--purple); }
+  .stat:nth-child(even) .stat-num{ color:var(--gold); }
+  .stat-label{ margin-top:10px; font-size:12.5px; color:var(--ink-3); line-height:1.5; }
+  .stat-tag{ position:absolute; top:14px; right:14px; font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--muted); letter-spacing:.04em; }
+  @media (max-width:860px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:520px){ .stats-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- sections ---------- */
+  .section{ padding:clamp(56px,7vw,92px) 0; border-bottom:1px solid var(--line); scroll-margin-top:70px; }
+  .section:last-of-type{ border-bottom:none; }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:clamp(28px,3.4vw,44px); flex-wrap:wrap; }
+  .section-eyebrow{ display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.14em; color:var(--purple); margin-bottom:12px; font-weight:600; }
+  .section-eyebrow::before{ content:"//"; color:var(--muted); }
+  h2.section-title{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(24px,3vw,36px); line-height:1.1; letter-spacing:-.01em; text-transform:uppercase; }
+  h2.section-title em{ font-style:normal; color:var(--gold); }
+  .section-side{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-3); letter-spacing:.02em; padding-bottom:5px; text-align:right; max-width:32ch; }
+  @media (max-width:700px){ .section-side{ text-align:left; } }
+
+  /* ---------- work cards ---------- */
+  .work-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  @media (max-width:900px){ .work-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .work-grid{ grid-template-columns:1fr; } }
+
+  .work-card{ border:1px solid var(--line); border-radius:16px; background:var(--card); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .2s; }
+  .work-card:hover{ transform:translateY(-4px); border-color:var(--purple); }
+  .thumb{ position:relative; aspect-ratio:16/9; background:var(--bg); border-bottom:1px solid var(--line); overflow:hidden; }
+  .thumb.ratio-vertical{ aspect-ratio:9/16; }
+  .thumb img{ width:100%; height:100%; object-fit:cover; }
+  .thumb-play{ position:absolute; inset:0; display:grid; place-items:center; background:linear-gradient(to top, rgba(0,0,0,.42), rgba(0,0,0,0) 55%); opacity:0; transition:opacity .25s; }
+  .work-card:hover .thumb-play{ opacity:1; }
+  .thumb-play span{ width:46px; height:46px; border-radius:999px; background:var(--purple); color:var(--purple-ink); display:grid; place-items:center; font-size:15px; padding-left:3px; }
+
+  /* the empty asset slot */
+  .slot{
+    position:absolute; inset:8px;
+    border:1.5px dashed var(--line-2); border-radius:10px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px;
+    text-align:center; padding:14px; background:var(--purple-soft);
+  }
+  .slot-icon{ font-size:17px; opacity:.5; }
+  .slot-label{ font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); font-weight:700; }
+  .slot-hint{ font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--muted); line-height:1.5; max-width:22ch; }
+
+  .work-body{ padding:clamp(16px,1.9vw,20px); display:flex; flex-direction:column; flex:1; }
+  .work-show{ font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); font-weight:700; }
+  .work-title{ margin-top:9px; font-family:'Unbounded',sans-serif; font-weight:600; font-size:15.5px; line-height:1.34; letter-spacing:-.005em; }
+  .work-title.is-empty{ color:var(--muted); font-weight:400; font-style:italic; font-family:'Manrope',sans-serif; }
+  .work-role{ margin-top:10px; font-size:13px; color:var(--ink-3); line-height:1.6; flex:1; }
+  .work-foot{ margin-top:14px; padding-top:13px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .work-link{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--purple); text-decoration:none; font-weight:600; }
+  .work-link:hover{ text-decoration:underline; }
+  .work-link.is-disabled{ color:var(--muted); pointer-events:none; }
+  .work-metric{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); letter-spacing:.04em; }
+
+  .breakdown{ border-top:1px solid var(--line); }
+  .breakdown summary{ list-style:none; cursor:pointer; padding:12px clamp(16px,1.9vw,20px); font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); display:flex; justify-content:space-between; align-items:center; gap:10px; transition:color .2s; -webkit-tap-highlight-color:transparent; }
+  .breakdown summary::-webkit-details-marker{ display:none; }
+  .breakdown summary::marker{ content:""; }
+  .breakdown summary:hover{ color:var(--ink); }
+  .breakdown summary .chev{ width:20px; height:20px; border-radius:999px; border:1px solid var(--line-2); display:grid; place-items:center; font-size:11px; transition:transform .25s cubic-bezier(.2,.7,.2,1),color .2s,border-color .2s; }
+  .breakdown[open] summary .chev{ transform:rotate(45deg); color:var(--purple); border-color:var(--purple); }
+  .breakdown-body{ padding:0 clamp(16px,1.9vw,20px) 18px; display:flex; flex-direction:column; gap:12px; }
+  .bd-row .bd-k{ font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .bd-row .bd-v{ margin-top:4px; font-size:13px; color:var(--ink-2); line-height:1.6; }
+  .bd-row .bd-v.is-empty{ color:var(--muted); font-style:italic; }
+  @media (prefers-reduced-motion: reduce){ .breakdown summary .chev{ transition:none; } .work-card{ transition:none; } }
+
+  /* shorts row */
+  .shorts-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  @media (max-width:900px){ .shorts-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:480px){ .shorts-grid{ grid-template-columns:1fr; } }
+  .short-card{ border:1px solid var(--line); border-radius:14px; background:var(--card); box-shadow:var(--shadow); overflow:hidden; transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .2s; }
+  .short-card:hover{ transform:translateY(-4px); border-color:var(--purple); }
+  .short-body{ padding:14px 15px 16px; }
+  .short-hook{ font-size:12.5px; color:var(--ink-2); line-height:1.55; }
+  .short-tag{ margin-top:9px; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+
+  /* ---------- side quests ---------- */
+  .quests{ display:flex; flex-direction:column; gap:12px; }
+  .quest{ border:1px solid var(--line); border-radius:16px; padding:clamp(20px,2.2vw,26px); background:var(--card); box-shadow:var(--shadow); display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:flex-start; }
+  .quest-badge{ flex:none; width:40px; height:40px; border-radius:10px; background:var(--gold-soft); border:1px solid var(--line-2); display:grid; place-items:center; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:var(--gold); text-align:center; line-height:1.15; }
+  .quest-title{ font-family:'Unbounded',sans-serif; font-weight:600; font-size:16px; }
+  .quest-tag{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-top:3px; }
+  .quest-body{ margin-top:10px; font-size:14px; color:var(--ink-2); line-height:1.65; }
+  .quest-link{ display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--purple); text-decoration:none; }
+  .quest-link:hover{ text-decoration:underline; }
+  @media (max-width:600px){ .quest{ grid-template-columns:1fr; } }
+
+  /* ---------- process ---------- */
+  .process{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  @media (max-width:820px){ .process{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:480px){ .process{ grid-template-columns:1fr; } }
+  .step{ border:1px solid var(--line); border-radius:14px; padding:clamp(18px,2vw,22px); background:var(--card); box-shadow:var(--shadow); position:relative; transition:transform .25s cubic-bezier(.2,.7,.2,1),border-color .2s; }
+  .step:hover{ transform:translateY(-3px); border-color:var(--purple); }
+  .step-num{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); letter-spacing:.06em; }
+  .step-title{ margin-top:12px; font-family:'Unbounded',sans-serif; font-weight:600; font-size:15.5px; letter-spacing:-.005em; }
+  .step-body{ margin-top:10px; font-size:13px; color:var(--ink-3); line-height:1.6; }
+
+  /* ---------- contact ---------- */
+  .contact-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(28px,4vw,44px); align-items:end; }
+  .contact-line{ font-family:'Unbounded',sans-serif; font-size:clamp(22px,2.8vw,32px); font-weight:700; letter-spacing:-.01em; line-height:1.3; max-width:16ch; text-transform:uppercase; }
+  .contact-line .hl{ color:var(--purple); }
+  .contact-sub{ margin-top:16px; font-size:14px; color:var(--ink-3); line-height:1.65; max-width:38ch; }
+  .contact-list{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .contact-list a{ display:flex; justify-content:space-between; align-items:center; gap:12px; text-decoration:none; padding:14px 16px; border:1px solid var(--line); border-radius:10px; background:var(--card); font-size:14.5px; color:var(--ink-2); transition:border-color .2s,color .2s; }
+  .contact-list a:hover{ color:var(--ink); border-color:var(--purple); }
+  .contact-list .k{ font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+  .contact-list .arrow{ color:var(--muted); transition:transform .2s,color .2s; }
+  .contact-list a:hover .arrow{ color:var(--purple); transform:translate(2px,-2px); }
+  @media (max-width:760px){ .contact-grid{ grid-template-columns:1fr; } }
+
+  footer.foot{ padding:30px 0 54px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); letter-spacing:.03em; text-transform:uppercase; }
+  footer.foot a{ color:var(--muted); text-decoration:none; }
+  footer.foot a:hover{ color:var(--purple); }
+</style>
+</head>
+<body>
+
+<!-- ===================== CLAPPERBOARD COLD OPEN ===================== -->
+<div class="slate-overlay" id="slate" role="presentation">
+  <div>
+    <div class="slate" id="slateBoard">
+      <div class="slate-stick" id="slateStick"><div class="stripes"></div></div>
+      <div class="slate-base">
+        <div class="slate-rows">
+          <div class="slate-row"><span class="k">Production</span><span class="v">Swasti Shukla</span></div>
+          <div class="slate-row"><span class="k">Role</span><span class="v">Creative &amp; Growth <em>Strategist</em></span></div>
+          <div class="slate-row"><span class="k">Scene</span><span class="v">Proof of Work</span></div>
+          <div class="slate-row slate-split-wrap">
+            <span class="k">Take</span>
+            <span class="v">01 &nbsp;·&nbsp; <em>2026</em></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slate-action" id="slateAction">Action.</div>
+  </div>
+  <button class="slate-skip" id="slateSkip" type="button">Skip intro</button>
+</div>
+<div class="slate-flash" id="slateFlash" aria-hidden="true"></div>
+
+<div class="page" id="page">
+
+<div class="progress" id="progress"></div>
+
+<div class="topnav">
+  <div class="topnav-inner">
+    <div class="wordmark"><span class="mark">S</span> SWASTI SHUKLA</div>
+    <nav>
+      <a href="#reel">The Reel</a>
+      <a href="#longform">Long Form</a>
+      <a href="#shorts">Shorts</a>
+      <a href="#campaigns">Campaigns</a>
+      <a href="#quests">Side Quests</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <span class="badge"><span class="dot"></span> Open to new work</span>
+  </div>
+</div>
+
+<div class="shell">
+
+  <header class="hero" id="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Proof of Work</p>
+        <h1 class="name">Swasti<br><span class="hl">Shukla</span></h1>
+        <p class="tagline">I turn research into scripts, and scripts into <span class="hl2">distribution that compounds</span>.</p>
+        <p class="lede">Seven years across brand, podcast, and creator marketing. I own end-to-end creative and growth strategy for <strong>SparX</strong>, a deep-tech podcast by Mukesh Bansal with 1M+ subscribers on YouTube, under <strong>Meraki Labs</strong>. This page is the receipts: the shows, the clips, the campaigns, and the thinking underneath each one.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#longform">See the work ↓</a>
+          <a class="btn btn-ghost" href="https://swasti-source.github.io/swasti_resume/" target="_blank" rel="noopener">Full résumé ↗</a>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-label">Currently Building</span>
+          <span class="panel-count mono">Meraki Labs</span>
+        </div>
+        <span class="panel-feature-tag">Podcast</span>
+        <div class="panel-feature-title">SparX Podcast</div>
+        <div class="panel-feature-sub">Deep-tech podcast by Mukesh Bansal, with 1M+ subscribers on YouTube. I own topic and question direction, script direction, and the post-production calls on what stays and what's cut.</div>
+        <div class="panel-foot">Also leading creative and growth on <strong>DhyanHQ</strong>, an Indian spiritual-wellness platform, working directly with founder Mukesh Bansal.</div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<div class="shell">
+
+  <section class="stats" id="reel">
+    <div class="stats-grid" id="statsGrid"></div>
+  </section>
+
+  <section class="section" id="longform">
+    <div class="section-head">
+      <div>
+        <p class="section-eyebrow">01 — Long Form</p>
+        <h2 class="section-title">Episodes I <em>Shaped</em></h2>
+      </div>
+      <p class="section-side">Topic, questions, script direction, and the cut. Open a card for the thinking behind it.</p>
+    </div>
+    <div class="work-grid" id="longformGrid"></div>
+  </section>
+
+  <section class="section" id="shorts">
+    <div class="section-head">
+      <div>
+        <p class="section-eyebrow">02 — Short Form</p>
+        <h2 class="section-title">Clips That <em>Travelled</em></h2>
+      </div>
+      <p class="section-side">Episodes cut for Instagram across 10 channels. 69K followers, plus a LinkedIn arm at ₹0.20 CPV.</p>
+    </div>
+    <div class="shorts-grid" id="shortsGrid"></div>
+  </section>
+
+  <section class="section" id="campaigns">
+    <div class="section-head">
+      <div>
+        <p class="section-eyebrow">03 — Campaigns &amp; Brand</p>
+        <h2 class="section-title">Creators, At <em>Scale</em></h2>
+      </div>
+      <p class="section-side">Fifty-plus creator campaigns, fifteen-plus brands, run end-to-end.</p>
+    </div>
+    <div class="work-grid" id="campaignGrid"></div>
+  </section>
+
+  <section class="section" id="quests">
+    <div class="section-head">
+      <div>
+        <p class="section-eyebrow">04 — Off The Clock</p>
+        <h2 class="section-title">Side <em>Quests</em></h2>
+      </div>
+      <p class="section-side">Things I build because I want to, not because a brief says so.</p>
+    </div>
+    <div class="quests">
+      <div class="quest">
+        <div class="quest-badge">SQ<br>01</div>
+        <div>
+          <div class="quest-title">Swastigram</div>
+          <div class="quest-tag">@swastigram_ · Instagram · Lifestyle &amp; Creator Content</div>
+          <p class="quest-body">A personal content practice run independently of studio and client work: lifestyle, routines, and behind-the-scenes. It's where I test formats, hooks, and edit styles before they show up in the day job.</p>
+          <a class="quest-link" href="https://www.instagram.com/swastigram_/" target="_blank" rel="noopener">View profile ↗</a>
+        </div>
+      </div>
+      <div class="quest">
+        <div class="quest-badge">SQ<br>02</div>
+        <div>
+          <div class="quest-title">Swasti Shukla</div>
+          <div class="quest-tag">@SwastiShukla · YouTube · Vlogs &amp; Personal Content</div>
+          <p class="quest-body">A personal vlogging channel: day-in-the-life and lifestyle videos, shot and edited solo. Long-form's a different muscle from clipping podcast episodes, and this is where I keep it exercised.</p>
+          <a class="quest-link" href="https://www.youtube.com/@SwastiShukla" target="_blank" rel="noopener">View channel ↗</a>
+        </div>
+      </div>
+      <div class="quest">
+        <div class="quest-badge">SQ<br>03</div>
+        <div>
+          <div class="quest-title">Popcorn Theory</div>
+          <div class="quest-tag">@popcorn.theory · Movies, TV &amp; Pop Culture</div>
+          <p class="quest-body">A pop-culture page: movie and TV reviews, recommendations, and commentary on what's trending. Run as its own small brand, separate from my name and my client work.</p>
+          <a class="quest-link" href="https://www.instagram.com/popcorn.theory/" target="_blank" rel="noopener">View profile ↗</a>
+        </div>
+      </div>
+      <div class="quest">
+        <div class="quest-badge">SQ<br>04</div>
+        <div>
+          <div class="quest-title">Together With Kai</div>
+          <div class="quest-tag">Podcast &amp; Space Host · Mental Health</div>
+          <p class="quest-body">I host podcast episodes and live Space conversations on the Together With Kai platform, centred on mental health, and create UGC and social-first content across the brand's channels.</p>
+          <span class="quest-link" style="color:var(--muted)">Link slot — add the show page ↗</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="section-head">
+      <div>
+        <p class="section-eyebrow">05 — How I Work</p>
+        <h2 class="section-title">Research To <em>Reach</em></h2>
+      </div>
+      <p class="section-side">The same four moves, whether it's an episode or a campaign.</p>
+    </div>
+    <div class="process">
+      <div class="step">
+        <span class="step-num mono">01</span>
+        <div class="step-title">Research first</div>
+        <div class="step-body">Understand the guest, the category, and what the audience already knows. The question nobody has asked yet is in there somewhere.</div>
+      </div>
+      <div class="step">
+        <span class="step-num mono">02</span>
+        <div class="step-title">Shape the script</div>
+        <div class="step-body">Topic, question order, and the spine of the story. What earns the first sixty seconds, and what earns the next forty minutes.</div>
+      </div>
+      <div class="step">
+        <span class="step-num mono">03</span>
+        <div class="step-title">Cut for the platform</div>
+        <div class="step-body">One episode becomes a dozen assets. Each cut built for where it lands, not resized and reposted.</div>
+      </div>
+      <div class="step">
+        <span class="step-num mono">04</span>
+        <div class="step-title">Read the numbers</div>
+        <div class="step-body">Retention, hook rate, CPV. What the data says goes back into the next brief, not into a deck nobody opens.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="contact-grid">
+      <div>
+        <p class="contact-line">Let's <span class="hl">talk</span>.</p>
+        <p class="contact-sub">Open to roles and projects across content strategy, creator marketing, and podcast growth. Tell me what you're building and the deadline you're working to.</p>
+      </div>
+      <ul class="contact-list">
+        <li><a href="mailto:swasti.shukla22@gmail.com"><span><span class="k">Email</span><br>swasti.shukla22@gmail.com</span><span class="arrow">↗</span></a></li>
+        <li><a href="https://www.linkedin.com/in/swasti-shukla-365696164/" target="_blank" rel="noopener"><span><span class="k">LinkedIn</span><br>Swasti Shukla</span><span class="arrow">↗</span></a></li>
+        <li><a href="https://www.instagram.com/swastigram_/" target="_blank" rel="noopener"><span><span class="k">Instagram</span><br>@swastigram_</span><span class="arrow">↗</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Swasti Shukla © 2026</span>
+    <span>Built with research, scripts &amp; structure</span>
+    <span><a href="https://swasti-source.github.io/swasti_resume/" target="_blank" rel="noopener">Résumé ↗</a></span>
+  </footer>
+
+</div>
+</div>
+
+<script>
+/* ============================================================
+   FILL YOUR WORK IN HERE — this is the only part you edit.
+   ------------------------------------------------------------
+   Long form  : set youtubeId to the bit after "v=" in a YouTube
+                URL. Thumbnail and link then appear automatically.
+   Shorts     : set image to a file you drop in assets/shorts/
+                (e.g. "assets/shorts/01.jpg") and link to the reel.
+   Campaigns  : set image to a file in assets/campaigns/ and link
+                to the case study, deck, or post.
+   Leave a field as "" and it stays a labelled empty slot.
+   ============================================================ */
+
+var STATS = [
+  { num:"1M+",  tag:"SPARX · YOUTUBE",   label:"Subscribers on the show I run creative and growth for" },
+  { num:"69K",  tag:"INSTAGRAM",         label:"Followers grown by clipping episodes across 10 channels" },
+  { num:"₹0.20",tag:"LINKEDIN · CPV",    label:"Cost per view on the LinkedIn distribution arm I built" },
+  { num:"1L+",  tag:"HEADOUT · 2 MONTHS",label:"Travel creators acquired at launch of Headout for Creators" },
+  { num:"50+",  tag:"END-TO-END",        label:"Creator campaigns run from outreach to reporting" },
+  { num:"20+",  tag:"EPISODES",          label:"Podcast episodes researched, shaped and cut" }
+];
+
+var MARQUEE = [
+  "SparX", "Meraki Labs", "DhyanHQ", "Headout", "DiveIn Media", "OpenInApp",
+  "Together With Kai", "YoLoud", "Content Strategy", "Creator Campaigns",
+  "Short-Form Distribution", "Brand &amp; GTM", "Community Building"
+];
+
+var LONGFORM = [
+  {
+    show: "SparX · Meraki Labs",
+    title: "",
+    youtubeId: "",
+    metric: "",
+    role: "Owned the topic and question direction, script, and the post-production calls on what stayed in the cut.",
+    breakdown: {
+      "The hook": "",
+      "Who it was for": "",
+      "What it did": ""
+    }
+  },
+  {
+    show: "SparX · Meraki Labs",
+    title: "",
+    youtubeId: "",
+    metric: "",
+    role: "Research through to final cut, working across a 15-member content, production and growth team.",
+    breakdown: {
+      "The hook": "",
+      "Who it was for": "",
+      "What it did": ""
+    }
+  },
+  {
+    show: "SparX · Meraki Labs",
+    title: "",
+    youtubeId: "",
+    metric: "",
+    role: "Guest research, question architecture, and the distribution plan that ran off the back of the episode.",
+    breakdown: {
+      "The hook": "",
+      "Who it was for": "",
+      "What it did": ""
+    }
+  }
+];
+
+var SHORTS = [
+  { show:"SparX", image:"", link:"", hook:"", tag:"Instagram · Reel" },
+  { show:"SparX", image:"", link:"", hook:"", tag:"Instagram · Reel" },
+  { show:"DhyanHQ", image:"", link:"", hook:"", tag:"Instagram · Reel" },
+  { show:"Swastigram", image:"", link:"", hook:"", tag:"Instagram · Reel" }
+];
+
+var CAMPAIGNS = [
+  {
+    show: "Headout · 2024–26",
+    title: "Headout for Creators",
+    image: "", link: "",
+    metric: "1L+ creators",
+    role: "Launched the creator programme inside brand marketing, acquiring 100,000+ travel creators in the first two months, then ran seasonal and holiday campaigns off it.",
+    breakdown: {
+      "The brief": "Build a creator acquisition engine for a travel-experiences brand from a standing start.",
+      "What I did": "",
+      "The result": ""
+    }
+  },
+  {
+    show: "Meraki Labs · 2026–",
+    title: "DhyanHQ",
+    image: "", link: "",
+    metric: "0→1",
+    role: "End-to-end creative and growth strategy for an Indian spiritual-wellness platform, working directly with founder Mukesh Bansal. Led a 3-person core team across research, positioning and product-market fit.",
+    breakdown: {
+      "The brief": "Find the position, the audience, and the content engine for a new wellness product.",
+      "What I did": "",
+      "The result": ""
+    }
+  },
+  {
+    show: "DiveIn Media · 2022–24",
+    title: "Influencer campaigns, 15+ brands",
+    image: "", link: "",
+    metric: "15+ brands",
+    role: "Designed and executed influencer-led strategies across Instagram, YouTube and X. Owned campaigns from ideation and creator selection through execution, reporting and optimisation, and led the team running them.",
+    breakdown: {
+      "The brief": "Multi-category creator campaigns, run end-to-end for brands across the board.",
+      "What I did": "",
+      "The result": ""
+    }
+  }
+];
+
+/* ============================================================
+   Rendering — you shouldn't need to touch anything below.
+   ============================================================ */
+(function(){
+  "use strict";
+
+  function esc(s){
+    return String(s == null ? "" : s)
+      .replace(/&(?!(amp|lt|gt|quot|#39|nbsp|middot|rarr);)/g, "&amp;")
+      .replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function has(v){ return typeof v === "string" && v.trim().length > 0; }
+
+  /* ---- stats ---- */
+  var statsGrid = document.getElementById("statsGrid");
+  if (statsGrid){
+    statsGrid.innerHTML = STATS.map(function(s){
+      return '<div class="stat">' +
+        '<span class="stat-tag mono">' + esc(s.tag) + '</span>' +
+        '<div class="stat-num">' + esc(s.num) + '</div>' +
+        '<div class="stat-label">' + esc(s.label) + '</div>' +
+      '</div>';
+    }).join("");
+  }
+
+  /* ---- marquee ---- */
+  var track = document.getElementById("marqueeTrack");
+  if (track){
+    var once = MARQUEE.map(function(m){
+      return '<span class="marquee-item">' + m + '</span>';
+    }).join("");
+    track.innerHTML = once + once;
+  }
+
+  /* ---- thumbnail / slot ---- */
+  function thumbHTML(item, kind){
+    var vertical = kind === "short";
+    var cls = "thumb" + (vertical ? " ratio-vertical" : "");
+    var src = "";
+    if (kind === "long" && has(item.youtubeId)){
+      src = "https://img.youtube.com/vi/" + encodeURIComponent(item.youtubeId.trim()) + "/maxresdefault.jpg";
+    } else if (has(item.image)){
+      src = item.image.trim();
+    }
+    if (src){
+      return '<div class="' + cls + '">' +
+        '<img src="' + esc(src) + '" alt="' + esc(item.title || item.show || "Work thumbnail") + '" loading="lazy">' +
+        '<div class="thumb-play"><span>▶</span></div>' +
+      '</div>';
+    }
+    var label = kind === "long" ? "YouTube ID slot"
+              : kind === "short" ? "Reel image slot"
+              : "Cover image slot";
+    var hint  = kind === "long" ? "Add youtubeId in the list at the bottom of index.html"
+              : kind === "short" ? "Drop a 9:16 image in assets/shorts/ and set image"
+              : "Drop a 16:9 image in assets/campaigns/ and set image";
+    return '<div class="' + cls + '">' +
+      '<div class="slot">' +
+        '<span class="slot-icon">🎬</span>' +
+        '<span class="slot-label">' + label + '</span>' +
+        '<span class="slot-hint">' + hint + '</span>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function breakdownHTML(bd){
+    if (!bd) return "";
+    var rows = Object.keys(bd).map(function(k){
+      var v = bd[k];
+      var filled = has(v);
+      return '<div class="bd-row">' +
+        '<div class="bd-k">' + esc(k) + '</div>' +
+        '<div class="bd-v' + (filled ? '' : ' is-empty') + '">' +
+          (filled ? esc(v) : 'Add a line here.') +
+        '</div>' +
+      '</div>';
+    }).join("");
+    return '<details class="breakdown">' +
+      '<summary>Strategy breakdown <span class="chev">+</span></summary>' +
+      '<div class="breakdown-body">' + rows + '</div>' +
+    '</details>';
+  }
+
+  function cardHTML(item, kind){
+    var link = "";
+    if (kind === "long" && has(item.youtubeId)){
+      link = "https://www.youtube.com/watch?v=" + encodeURIComponent(item.youtubeId.trim());
+    } else if (has(item.link)){
+      link = item.link.trim();
+    }
+    var titleFilled = has(item.title);
+    var linkHTML = link
+      ? '<a class="work-link" href="' + esc(link) + '" target="_blank" rel="noopener">Watch ↗</a>'
+      : '<span class="work-link is-disabled">Link slot</span>';
+
+    return '<article class="work-card">' +
+      thumbHTML(item, kind) +
+      '<div class="work-body">' +
+        '<div class="work-show">' + esc(item.show) + '</div>' +
+        '<h3 class="work-title' + (titleFilled ? '' : ' is-empty') + '">' +
+          (titleFilled ? esc(item.title) : 'Episode title slot') +
+        '</h3>' +
+        '<p class="work-role">' + esc(item.role) + '</p>' +
+        '<div class="work-foot">' + linkHTML +
+          '<span class="work-metric">' + (has(item.metric) ? esc(item.metric) : '—') + '</span>' +
+        '</div>' +
+      '</div>' +
+      breakdownHTML(item.breakdown) +
+    '</article>';
+  }
+
+  var lf = document.getElementById("longformGrid");
+  if (lf) lf.innerHTML = LONGFORM.map(function(i){ return cardHTML(i, "long"); }).join("");
+
+  var cg = document.getElementById("campaignGrid");
+  if (cg) cg.innerHTML = CAMPAIGNS.map(function(i){ return cardHTML(i, "campaign"); }).join("");
+
+  var sg = document.getElementById("shortsGrid");
+  if (sg){
+    sg.innerHTML = SHORTS.map(function(item){
+      var open = has(item.link) ? '<a href="' + esc(item.link.trim()) + '" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">' : '<div>';
+      var close = has(item.link) ? '</a>' : '</div>';
+      return '<article class="short-card">' + open +
+        thumbHTML(item, "short") +
+        '<div class="short-body">' +
+          '<div class="short-hook">' +
+            (has(item.hook) ? esc(item.hook)
+                            : '<span style="color:var(--muted);font-style:italic">Hook line slot — what made someone stop scrolling.</span>') +
+          '</div>' +
+          '<div class="short-tag">' + esc(item.show) + ' · ' + esc(item.tag) + '</div>' +
+        '</div>' +
+      close + '</article>';
+    }).join("");
+  }
+
+  /* ---- scroll progress ---- */
+  var bar = document.getElementById("progress");
+  function onScroll(){
+    if (!bar) return;
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+  }
+  document.addEventListener("scroll", onScroll, { passive:true });
+  onScroll();
+})();
+
+/* ---- the clapperboard ---- */
+(function(){
+  "use strict";
+  var overlay = document.getElementById("slate");
+  var board   = document.getElementById("slateBoard");
+  var stick   = document.getElementById("slateStick");
+  var flash   = document.getElementById("slateFlash");
+  var action  = document.getElementById("slateAction");
+  var skip    = document.getElementById("slateSkip");
+  var page    = document.getElementById("page");
+  var html    = document.documentElement;
+  if (!overlay || !page) return;
+
+  var timers = [];
+  var done = false;
+
+  function reveal(){
+    if (done) return;
+    done = true;
+    timers.forEach(clearTimeout);
+    html.classList.remove("is-locked");
+    page.classList.add("is-live");
+    overlay.classList.add("is-out");
+    setTimeout(function(){ overlay.classList.add("is-gone"); }, 640);
+    try { sessionStorage.setItem("swasti-slate-seen", "1"); } catch (e) {}
+  }
+
+  var seen = false;
+  try { seen = sessionStorage.getItem("swasti-slate-seen") === "1"; } catch (e) {}
+
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (seen || reduced){
+    overlay.classList.add("is-gone");
+    page.style.opacity = "1";
+    return;
+  }
+
+  html.classList.add("is-locked");
+
+  timers.push(setTimeout(function(){ if (stick) stick.classList.add("is-down"); }, 900));
+  timers.push(setTimeout(function(){
+    if (board) board.classList.add("is-snap");
+    if (flash) flash.classList.add("is-on");
+    if (action) action.classList.add("is-on");
+  }, 1075));
+  timers.push(setTimeout(reveal, 1850));
+
+  if (skip) skip.addEventListener("click", reveal);
+  overlay.addEventListener("click", reveal);
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" || e.key === "Enter" || e.key === " ") reveal();
+  });
+})();
+</script>
+
+</body>
+</html>

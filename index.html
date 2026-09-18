@@ -366,6 +366,50 @@
   .short-hook{ font-size:12.5px; color:var(--ink-2); line-height:1.55; }
   .short-tag{ margin-top:9px; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
 
+  /* instagram tile — used when there is no screenshot yet */
+  .thumb.ratio-carousel{ aspect-ratio:4/5; }
+  .ig-tile{
+    position:absolute; inset:0; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:16px 16px 14px;
+    background:
+      radial-gradient(130% 90% at 18% 8%, var(--purple-soft), transparent 62%),
+      linear-gradient(158deg, var(--bg-2) 0%, var(--bg) 100%);
+  }
+  .ig-tile::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:3px;
+    background:linear-gradient(90deg, var(--purple), var(--gold));
+    opacity:.75;
+  }
+  /* faint clapperboard stripes, so an un-screenshotted tile still has texture */
+  .ig-tile::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(112deg, var(--ink) 0 17px, transparent 17px 34px);
+    opacity:.045;
+  }
+  .ig-ghost{
+    position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    font-family:'Unbounded',sans-serif; font-weight:700;
+    font-size:clamp(76px,11vw,118px); line-height:.8;
+    color:var(--ink); opacity:.07; letter-spacing:-.05em; pointer-events:none;
+  }
+  .thumb.ratio-carousel .ig-ghost{ font-size:clamp(60px,8vw,88px); }
+  .ig-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; position:relative; z-index:1; }
+  .ig-glyph{
+    width:26px; height:26px; border-radius:8px; flex:none;
+    border:1.5px solid var(--line-2); display:grid; place-items:center;
+    color:var(--purple); background:var(--card);
+  }
+  .ig-glyph svg{ width:14px; height:14px; display:block; }
+  .ig-kind{ font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .ig-bottom{ position:relative; z-index:1; }
+  .ig-hook{ font-size:13px; line-height:1.5; color:var(--ink-2); font-weight:600; }
+  .ig-cue{ margin-top:9px; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--purple); font-weight:700; }
+
+  .sub-head{ display:flex; align-items:center; gap:16px; margin:clamp(30px,3.6vw,44px) 0 clamp(16px,2vw,22px); }
+  .sub-head-label{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; white-space:nowrap; }
+  .sub-head-rule{ flex:1; height:1px; background:var(--line); }
+
   /* ---------- side quests ---------- */
   .quests{ display:flex; flex-direction:column; gap:12px; }
   .quest{ border:1px solid var(--line); border-radius:16px; padding:clamp(20px,2.2vw,26px); background:var(--card); box-shadow:var(--shadow); display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:flex-start; }
@@ -441,7 +485,9 @@
       <a href="#reel">The Reel</a>
       <a href="#longform">Long Form</a>
       <a href="#shorts">Shorts</a>
+      <a href="#carousels">Carousels</a>
       <a href="#campaigns">Campaigns</a>
+      <a href="#oncamera">On Camera</a>
       <a href="#quests">Side Quests</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -509,21 +555,49 @@
     <div class="shorts-grid" id="shortsGrid"></div>
   </section>
 
+  <section class="section" id="carousels">
+    <div class="section-head">
+      <div>
+        <p class="section-eyebrow">03 — Carousels</p>
+        <h2 class="section-title">Ideas That <em>Scroll</em></h2>
+      </div>
+      <p class="section-side">The same research, built to be read frame by frame instead of watched.</p>
+    </div>
+    <div class="shorts-grid" id="carouselGrid"></div>
+  </section>
+
   <section class="section" id="campaigns">
     <div class="section-head">
       <div>
-        <p class="section-eyebrow">03 — Campaigns &amp; Brand</p>
+        <p class="section-eyebrow">04 — Campaigns &amp; Brand</p>
         <h2 class="section-title">Creators, At <em>Scale</em></h2>
       </div>
       <p class="section-side">Fifty-plus creator campaigns, fifteen-plus brands, run end-to-end.</p>
     </div>
+    <div class="work-grid" id="programmeGrid"></div>
+
+    <div class="sub-head">
+      <span class="sub-head-label">Campaign work</span>
+      <span class="sub-head-rule"></span>
+    </div>
     <div class="work-grid" id="campaignGrid"></div>
+  </section>
+
+  <section class="section" id="oncamera">
+    <div class="section-head">
+      <div>
+        <p class="section-eyebrow">05 — On Camera</p>
+        <h2 class="section-title">Me, <em>Hosting</em></h2>
+      </div>
+      <p class="section-side">Not just behind the script. Hosting, presenting, and shooting my own.</p>
+    </div>
+    <div class="work-grid" id="cameraGrid"></div>
   </section>
 
   <section class="section" id="quests">
     <div class="section-head">
       <div>
-        <p class="section-eyebrow">04 — Off The Clock</p>
+        <p class="section-eyebrow">06 — Off The Clock</p>
         <h2 class="section-title">Side <em>Quests</em></h2>
       </div>
       <p class="section-side">Things I build because I want to, not because a brief says so.</p>
@@ -571,7 +645,7 @@
   <section class="section" id="process">
     <div class="section-head">
       <div>
-        <p class="section-eyebrow">05 — How I Work</p>
+        <p class="section-eyebrow">07 — How I Work</p>
         <h2 class="section-title">Research To <em>Reach</em></h2>
       </div>
       <p class="section-side">The same four moves, whether it's an episode or a campaign.</p>
@@ -654,50 +728,83 @@ var MARQUEE = [
 var LONGFORM = [
   {
     show: "SparX · Meraki Labs",
-    title: "",
-    youtubeId: "",
+    title: "Skyroot Founder: This Is How I Built India's First Private Rocket",
+    youtubeId: "FPya76YLbKA",
     metric: "",
-    role: "Owned the topic and question direction, script, and the post-production calls on what stayed in the cut.",
-    breakdown: {
-      "The hook": "",
-      "Who it was for": "",
-      "What it did": ""
-    }
+    role: "Topic and question direction, script, and the post-production calls on what stayed in the cut.",
+    breakdown: { "The hook": "", "Who it was for": "", "What it did": "" }
   },
   {
     show: "SparX · Meraki Labs",
-    title: "",
-    youtubeId: "",
-    metric: "",
-    role: "Research through to final cut, working across a 15-member content, production and growth team.",
-    breakdown: {
-      "The hook": "",
-      "Who it was for": "",
-      "What it did": ""
-    }
-  },
-  {
-    show: "SparX · Meraki Labs",
-    title: "",
-    youtubeId: "",
+    title: "The Truth About College Degrees In The AI Era — Vinod Khosla",
+    youtubeId: "pfGAdzo09xw",
     metric: "",
     role: "Guest research, question architecture, and the distribution plan that ran off the back of the episode.",
-    breakdown: {
-      "The hook": "",
-      "Who it was for": "",
-      "What it did": ""
-    }
+    breakdown: { "The hook": "", "Who it was for": "", "What it did": "" }
+  },
+  {
+    show: "SparX · Meraki Labs",
+    title: "How a 9th-Grade Dropout Built an AI That Beats OpenAI — Tanay Kothari, Wispr Flow",
+    youtubeId: "wRuF7a7YPtg",
+    metric: "",
+    role: "Research through to final cut, working across a 15-member content, production and growth team.",
+    breakdown: { "The hook": "", "Who it was for": "", "What it did": "" }
+  },
+  {
+    show: "SparX · Meraki Labs",
+    title: "PM's Adviser On The ₹1 Lakh Crore Plan To Make India A Tech Superpower",
+    youtubeId: "KTKxKDOxNOM",
+    metric: "",
+    role: "Topic framing and question direction on a policy conversation that had to stay precise.",
+    breakdown: { "The hook": "", "Who it was for": "", "What it did": "" }
+  },
+  {
+    show: "SparX · Meraki Labs",
+    title: "India's Top AI Researcher: Start An AI Company With ₹20 Lakh",
+    youtubeId: "OQ4b3xWZwio",
+    metric: "",
+    role: "Research, script direction, and the short-form cuts that carried the episode past the channel.",
+    breakdown: { "The hook": "", "Who it was for": "", "What it did": "" }
   }
 ];
 
 var SHORTS = [
-  { show:"SparX", image:"", link:"", hook:"", tag:"Instagram · Reel" },
-  { show:"SparX", image:"", link:"", hook:"", tag:"Instagram · Reel" },
-  { show:"DhyanHQ", image:"", link:"", hook:"", tag:"Instagram · Reel" },
-  { show:"Swastigram", image:"", link:"", hook:"", tag:"Instagram · Reel" }
+  { show:"Short form", tag:"Instagram · Reel", link:"https://www.instagram.com/reel/DcEOoUkJgZI/", image:"", hook:"" },
+  { show:"Short form", tag:"Instagram · Reel", link:"https://www.instagram.com/reel/DbcYUIzxm8n/", image:"", hook:"" },
+  { show:"Short form", tag:"Instagram · Reel", link:"https://www.instagram.com/reel/DZ_35VRRkxB/", image:"", hook:"" },
+  { show:"Short form", tag:"Instagram · Reel", link:"https://www.instagram.com/reel/DanT2FpphAb/", image:"", hook:"" }
+];
+
+var CAROUSELS = [
+  { show:"Carousel", tag:"Instagram · Carousel", link:"https://www.instagram.com/p/DajoIVHEQyU/", image:"", hook:"" },
+  { show:"Carousel", tag:"Instagram · Carousel", link:"https://www.instagram.com/p/DbzgOl3Eds3/", image:"", hook:"" }
 ];
 
 var CAMPAIGNS = [
+  {
+    show: "Creator campaign", title: "",
+    image: "", link: "https://www.instagram.com/reel/DOgdD9ukcid/",
+    metric: "",
+    role: "Creator-led campaign run end-to-end: brief, creator selection, execution and reporting.",
+    breakdown: { "The brief": "", "What I did": "", "The result": "" }
+  },
+  {
+    show: "Creator campaign", title: "",
+    image: "", link: "https://www.instagram.com/reel/DKybR9yozIX/",
+    metric: "",
+    role: "Creator-led campaign run end-to-end: brief, creator selection, execution and reporting.",
+    breakdown: { "The brief": "", "What I did": "", "The result": "" }
+  },
+  {
+    show: "Creator campaign", title: "",
+    image: "", link: "https://www.instagram.com/reel/CzWDVGWsad7/",
+    metric: "",
+    role: "Creator-led campaign run end-to-end: brief, creator selection, execution and reporting.",
+    breakdown: { "The brief": "", "What I did": "", "The result": "" }
+  }
+];
+
+var PROGRAMMES = [
   {
     show: "Headout · 2024–26",
     title: "Headout for Creators",
@@ -706,8 +813,7 @@ var CAMPAIGNS = [
     role: "Launched the creator programme inside brand marketing, acquiring 100,000+ travel creators in the first two months, then ran seasonal and holiday campaigns off it.",
     breakdown: {
       "The brief": "Build a creator acquisition engine for a travel-experiences brand from a standing start.",
-      "What I did": "",
-      "The result": ""
+      "What I did": "", "The result": ""
     }
   },
   {
@@ -718,8 +824,7 @@ var CAMPAIGNS = [
     role: "End-to-end creative and growth strategy for an Indian spiritual-wellness platform, working directly with founder Mukesh Bansal. Led a 3-person core team across research, positioning and product-market fit.",
     breakdown: {
       "The brief": "Find the position, the audience, and the content engine for a new wellness product.",
-      "What I did": "",
-      "The result": ""
+      "What I did": "", "The result": ""
     }
   },
   {
@@ -730,9 +835,33 @@ var CAMPAIGNS = [
     role: "Designed and executed influencer-led strategies across Instagram, YouTube and X. Owned campaigns from ideation and creator selection through execution, reporting and optimisation, and led the team running them.",
     breakdown: {
       "The brief": "Multi-category creator campaigns, run end-to-end for brands across the board.",
-      "What I did": "",
-      "The result": ""
+      "What I did": "", "The result": ""
     }
+  }
+];
+
+var ONCAMERA = [
+  {
+    show: "Swasti Shukla · YouTube",
+    title: "The Psychology of 'Delusional' Self-Belief (Why It Actually Works)",
+    youtubeId: "ZYcjPiqz4Gg",
+    metric: "",
+    role: "Written, shot, presented and edited solo on my own channel.",
+    breakdown: { "The hook": "", "Who it was for": "", "What it did": "" }
+  },
+  {
+    show: "On camera", title: "",
+    image: "", link: "https://www.instagram.com/reel/DZPwVphPmDW/",
+    metric: "",
+    role: "Hosting and presenting to camera.",
+    breakdown: { "The hook": "", "Who it was for": "", "What it did": "" }
+  },
+  {
+    show: "On camera", title: "",
+    image: "", link: "https://www.instagram.com/reel/DY1AgEHxgEi/",
+    metric: "",
+    role: "Hosting and presenting to camera.",
+    breakdown: { "The hook": "", "Who it was for": "", "What it did": "" }
   }
 ];
 
@@ -748,6 +877,12 @@ var CAMPAIGNS = [
       .replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   function has(v){ return typeof v === "string" && v.trim().length > 0; }
+  function pad(n){ return (n < 10 ? "0" : "") + n; }
+
+  var IG_GLYPH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<rect x="3" y="3" width="18" height="18" rx="5"></rect>' +
+    '<circle cx="12" cy="12" r="4"></circle>' +
+    '<circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>';
 
   /* ---- stats ---- */
   var statsGrid = document.getElementById("statsGrid");
@@ -764,34 +899,54 @@ var CAMPAIGNS = [
   /* ---- marquee ---- */
   var track = document.getElementById("marqueeTrack");
   if (track){
-    var once = MARQUEE.map(function(m){
-      return '<span class="marquee-item">' + m + '</span>';
-    }).join("");
+    var once = MARQUEE.map(function(m){ return '<span class="marquee-item">' + m + '</span>'; }).join("");
     track.innerHTML = once + once;
   }
 
-  /* ---- thumbnail / slot ---- */
-  function thumbHTML(item, kind){
-    var vertical = kind === "short";
-    var cls = "thumb" + (vertical ? " ratio-vertical" : "");
-    var src = "";
-    if (kind === "long" && has(item.youtubeId)){
-      src = "https://img.youtube.com/vi/" + encodeURIComponent(item.youtubeId.trim()) + "/maxresdefault.jpg";
+  /* ---- thumbnail: real image > instagram tile > empty slot ---- */
+  function thumbHTML(item, kind, index){
+    var ratio = kind === "short" ? " ratio-vertical" : (kind === "carousel" ? " ratio-carousel" : "");
+    var cls = "thumb" + ratio;
+    var src = "", fallback = "";
+    if (has(item.youtubeId)){
+      var vid = encodeURIComponent(item.youtubeId.trim());
+      src = "https://img.youtube.com/vi/" + vid + "/maxresdefault.jpg";
+      fallback = "https://img.youtube.com/vi/" + vid + "/hqdefault.jpg";
     } else if (has(item.image)){
       src = item.image.trim();
     }
+
     if (src){
+      /* not every video has a maxres thumbnail — fall back to hqdefault */
+      var onerr = fallback
+        ? ' onerror="this.onerror=null;this.src=&quot;' + esc(fallback) + '&quot;"'
+        : '';
       return '<div class="' + cls + '">' +
-        '<img src="' + esc(src) + '" alt="' + esc(item.title || item.show || "Work thumbnail") + '" loading="lazy">' +
+        '<img src="' + esc(src) + '" alt="' + esc(item.title || item.show || "Work thumbnail") + '" loading="lazy"' + onerr + '>' +
         '<div class="thumb-play"><span>▶</span></div>' +
       '</div>';
     }
-    var label = kind === "long" ? "YouTube ID slot"
-              : kind === "short" ? "Reel image slot"
-              : "Cover image slot";
-    var hint  = kind === "long" ? "Add youtubeId in the list at the bottom of index.html"
-              : kind === "short" ? "Drop a 9:16 image in assets/shorts/ and set image"
-              : "Drop a 16:9 image in assets/campaigns/ and set image";
+
+    /* a real link but no screenshot yet — render a designed tile, not a gap */
+    if (has(item.link)){
+      var kindLabel = kind === "carousel" ? "Carousel" : (kind === "camera" ? "On camera" : "Reel");
+      return '<div class="' + cls + '"><div class="ig-tile">' +
+        '<div class="ig-top">' +
+          '<span class="ig-glyph">' + IG_GLYPH + '</span>' +
+          '<span class="ig-kind">' + kindLabel + '</span>' +
+        '</div>' +
+        '<span class="ig-ghost">' + pad(index + 1) + '</span>' +
+        '<div class="ig-bottom">' +
+          (has(item.hook) ? '<div class="ig-hook">' + esc(item.hook) + '</div>' : '') +
+          '<div class="ig-cue">View on Instagram ↗</div>' +
+        '</div>' +
+      '</div></div>';
+    }
+
+    var label = kind === "long" || kind === "camera" ? "YouTube ID slot" : "Cover image slot";
+    var hint  = kind === "long" || kind === "camera"
+      ? "Add youtubeId in the list at the bottom of index.html"
+      : "Drop a 16:9 image in assets/campaigns/ and set image";
     return '<div class="' + cls + '">' +
       '<div class="slot">' +
         '<span class="slot-icon">🎬</span>' +
@@ -803,14 +958,13 @@ var CAMPAIGNS = [
 
   function breakdownHTML(bd){
     if (!bd) return "";
-    var rows = Object.keys(bd).map(function(k){
-      var v = bd[k];
-      var filled = has(v);
+    var keys = Object.keys(bd);
+    var anyFilled = keys.some(function(k){ return has(bd[k]); });
+    if (!anyFilled) return "";           /* nothing written yet — don't show an empty drawer */
+    var rows = keys.filter(function(k){ return has(bd[k]); }).map(function(k){
       return '<div class="bd-row">' +
         '<div class="bd-k">' + esc(k) + '</div>' +
-        '<div class="bd-v' + (filled ? '' : ' is-empty') + '">' +
-          (filled ? esc(v) : 'Add a line here.') +
-        '</div>' +
+        '<div class="bd-v">' + esc(bd[k]) + '</div>' +
       '</div>';
     }).join("");
     return '<details class="breakdown">' +
@@ -819,24 +973,25 @@ var CAMPAIGNS = [
     '</details>';
   }
 
-  function cardHTML(item, kind){
+  function cardHTML(item, kind, index){
     var link = "";
-    if (kind === "long" && has(item.youtubeId)){
+    if (has(item.youtubeId)){
       link = "https://www.youtube.com/watch?v=" + encodeURIComponent(item.youtubeId.trim());
     } else if (has(item.link)){
       link = item.link.trim();
     }
+    var isYT = has(item.youtubeId);
     var titleFilled = has(item.title);
     var linkHTML = link
-      ? '<a class="work-link" href="' + esc(link) + '" target="_blank" rel="noopener">Watch ↗</a>'
+      ? '<a class="work-link" href="' + esc(link) + '" target="_blank" rel="noopener">' + (isYT ? 'Watch' : 'View') + ' ↗</a>'
       : '<span class="work-link is-disabled">Link slot</span>';
 
     return '<article class="work-card">' +
-      thumbHTML(item, kind) +
+      thumbHTML(item, kind, index) +
       '<div class="work-body">' +
         '<div class="work-show">' + esc(item.show) + '</div>' +
         '<h3 class="work-title' + (titleFilled ? '' : ' is-empty') + '">' +
-          (titleFilled ? esc(item.title) : 'Episode title slot') +
+          (titleFilled ? esc(item.title) : 'Title slot — name the brand or the piece') +
         '</h3>' +
         '<p class="work-role">' + esc(item.role) + '</p>' +
         '<div class="work-foot">' + linkHTML +
@@ -847,29 +1002,35 @@ var CAMPAIGNS = [
     '</article>';
   }
 
-  var lf = document.getElementById("longformGrid");
-  if (lf) lf.innerHTML = LONGFORM.map(function(i){ return cardHTML(i, "long"); }).join("");
+  function fill(id, list, kind){
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = list.map(function(i, n){ return cardHTML(i, kind, n); }).join("");
+  }
+  fill("longformGrid",  LONGFORM,   "long");
+  fill("campaignGrid",  CAMPAIGNS,  "campaign");
+  fill("programmeGrid", PROGRAMMES, "campaign");
+  fill("cameraGrid",    ONCAMERA,   "camera");
 
-  var cg = document.getElementById("campaignGrid");
-  if (cg) cg.innerHTML = CAMPAIGNS.map(function(i){ return cardHTML(i, "campaign"); }).join("");
-
-  var sg = document.getElementById("shortsGrid");
-  if (sg){
-    sg.innerHTML = SHORTS.map(function(item){
-      var open = has(item.link) ? '<a href="' + esc(item.link.trim()) + '" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">' : '<div>';
+  /* ---- compact cards: shorts + carousels ---- */
+  function compact(id, list, kind){
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = list.map(function(item, n){
+      var open  = has(item.link) ? '<a href="' + esc(item.link.trim()) + '" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block">' : '<div>';
       var close = has(item.link) ? '</a>' : '</div>';
       return '<article class="short-card">' + open +
-        thumbHTML(item, "short") +
+        thumbHTML(item, kind, n) +
         '<div class="short-body">' +
-          '<div class="short-hook">' +
-            (has(item.hook) ? esc(item.hook)
-                            : '<span style="color:var(--muted);font-style:italic">Hook line slot — what made someone stop scrolling.</span>') +
+          (has(item.hook) ? '<div class="short-hook">' + esc(item.hook) + '</div>' : '') +
+          '<div class="short-tag"' + (has(item.hook) ? '' : ' style="margin-top:0"') + '>' +
+            esc(item.show) + ' · ' + esc(item.tag) +
           '</div>' +
-          '<div class="short-tag">' + esc(item.show) + ' · ' + esc(item.tag) + '</div>' +
         '</div>' +
       close + '</article>';
     }).join("");
   }
+  compact("shortsGrid",   SHORTS,    "short");
+  compact("carouselGrid", CAROUSELS, "carousel");
 
   /* ---- scroll progress ---- */
   var bar = document.getElementById("progress");

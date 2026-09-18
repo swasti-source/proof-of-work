@@ -315,7 +315,6 @@
   .work-card{ border:1px solid var(--line); border-radius:16px; background:var(--card); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .2s; }
   .work-card:hover{ transform:translateY(-4px); border-color:var(--purple); }
   .thumb{ position:relative; aspect-ratio:16/9; background:var(--bg); border-bottom:1px solid var(--line); overflow:hidden; }
-  .thumb.ratio-vertical{ aspect-ratio:9/16; }
   .thumb img{ width:100%; height:100%; object-fit:cover; }
   .thumb-play{ position:absolute; inset:0; display:grid; place-items:center; background:linear-gradient(to top, rgba(0,0,0,.42), rgba(0,0,0,0) 55%); opacity:0; transition:opacity .25s; }
   .work-card:hover .thumb-play{ opacity:1; }
@@ -367,7 +366,7 @@
   .short-tag{ margin-top:9px; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
 
   /* instagram tile — used when there is no screenshot yet */
-  .thumb.ratio-carousel{ aspect-ratio:4/5; }
+  .thumb.ratio-social{ aspect-ratio:4/5; }
   .ig-tile{
     position:absolute; inset:0; overflow:hidden;
     display:flex; flex-direction:column; justify-content:space-between;
@@ -393,7 +392,7 @@
     font-size:clamp(76px,11vw,118px); line-height:.8;
     color:var(--ink); opacity:.07; letter-spacing:-.05em; pointer-events:none;
   }
-  .thumb.ratio-carousel .ig-ghost{ font-size:clamp(60px,8vw,88px); }
+  .thumb.ratio-social .ig-ghost{ font-size:clamp(64px,8.5vw,96px); }
   .ig-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; position:relative; z-index:1; }
   .ig-glyph{
     width:26px; height:26px; border-radius:8px; flex:none;
@@ -409,17 +408,6 @@
   .sub-head{ display:flex; align-items:center; gap:16px; margin:clamp(30px,3.6vw,44px) 0 clamp(16px,2vw,22px); }
   .sub-head-label{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; white-space:nowrap; }
   .sub-head-rule{ flex:1; height:1px; background:var(--line); }
-
-  /* ---------- side quests ---------- */
-  .quests{ display:flex; flex-direction:column; gap:12px; }
-  .quest{ border:1px solid var(--line); border-radius:16px; padding:clamp(20px,2.2vw,26px); background:var(--card); box-shadow:var(--shadow); display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:flex-start; }
-  .quest-badge{ flex:none; width:40px; height:40px; border-radius:10px; background:var(--gold-soft); border:1px solid var(--line-2); display:grid; place-items:center; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:var(--gold); text-align:center; line-height:1.15; }
-  .quest-title{ font-family:'Unbounded',sans-serif; font-weight:600; font-size:16px; }
-  .quest-tag{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-top:3px; }
-  .quest-body{ margin-top:10px; font-size:14px; color:var(--ink-2); line-height:1.65; }
-  .quest-link{ display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--purple); text-decoration:none; }
-  .quest-link:hover{ text-decoration:underline; }
-  @media (max-width:600px){ .quest{ grid-template-columns:1fr; } }
 
   /* ---------- process ---------- */
   .process{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
@@ -484,11 +472,9 @@
     <nav>
       <a href="#reel">The Reel</a>
       <a href="#longform">Long Form</a>
-      <a href="#shorts">Shorts</a>
-      <a href="#carousels">Carousels</a>
+      <a href="#social">Instagram</a>
       <a href="#campaigns">Campaigns</a>
       <a href="#oncamera">On Camera</a>
-      <a href="#quests">Side Quests</a>
       <a href="#contact">Contact</a>
     </nav>
     <span class="badge"><span class="dot"></span> Open to new work</span>
@@ -544,32 +530,21 @@
     <div class="work-grid" id="longformGrid"></div>
   </section>
 
-  <section class="section" id="shorts">
+  <section class="section" id="social">
     <div class="section-head">
       <div>
-        <p class="section-eyebrow">02 — Short Form</p>
-        <h2 class="section-title">Clips That <em>Travelled</em></h2>
-      </div>
-      <p class="section-side">Episodes cut for Instagram across 10 channels. 69K followers, plus a LinkedIn arm at ₹0.20 CPV.</p>
-    </div>
-    <div class="shorts-grid" id="shortsGrid"></div>
-  </section>
-
-  <section class="section" id="carousels">
-    <div class="section-head">
-      <div>
-        <p class="section-eyebrow">03 — Carousels</p>
+        <p class="section-eyebrow">02 — Instagram</p>
         <h2 class="section-title">Ideas That <em>Scroll</em></h2>
       </div>
-      <p class="section-side">The same research, built to be read frame by frame instead of watched.</p>
+      <p class="section-side">Reels and carousels across 10 channels. 69K followers, plus a LinkedIn arm at ₹0.20 CPV.</p>
     </div>
-    <div class="shorts-grid" id="carouselGrid"></div>
+    <div class="shorts-grid" id="socialGrid"></div>
   </section>
 
   <section class="section" id="campaigns">
     <div class="section-head">
       <div>
-        <p class="section-eyebrow">04 — Campaigns &amp; Brand</p>
+        <p class="section-eyebrow">03 — Campaigns &amp; Brand</p>
         <h2 class="section-title">Creators, At <em>Scale</em></h2>
       </div>
       <p class="section-side">Fifty-plus creator campaigns, fifteen-plus brands, run end-to-end.</p>
@@ -586,7 +561,7 @@
   <section class="section" id="oncamera">
     <div class="section-head">
       <div>
-        <p class="section-eyebrow">05 — On Camera</p>
+        <p class="section-eyebrow">04 — On Camera</p>
         <h2 class="section-title">Me, <em>Hosting</em></h2>
       </div>
       <p class="section-side">Not just behind the script. Hosting, presenting, and shooting my own.</p>
@@ -594,58 +569,10 @@
     <div class="work-grid" id="cameraGrid"></div>
   </section>
 
-  <section class="section" id="quests">
-    <div class="section-head">
-      <div>
-        <p class="section-eyebrow">06 — Off The Clock</p>
-        <h2 class="section-title">Side <em>Quests</em></h2>
-      </div>
-      <p class="section-side">Things I build because I want to, not because a brief says so.</p>
-    </div>
-    <div class="quests">
-      <div class="quest">
-        <div class="quest-badge">SQ<br>01</div>
-        <div>
-          <div class="quest-title">Swastigram</div>
-          <div class="quest-tag">@swastigram_ · Instagram · Lifestyle &amp; Creator Content</div>
-          <p class="quest-body">A personal content practice run independently of studio and client work: lifestyle, routines, and behind-the-scenes. It's where I test formats, hooks, and edit styles before they show up in the day job.</p>
-          <a class="quest-link" href="https://www.instagram.com/swastigram_/" target="_blank" rel="noopener">View profile ↗</a>
-        </div>
-      </div>
-      <div class="quest">
-        <div class="quest-badge">SQ<br>02</div>
-        <div>
-          <div class="quest-title">Swasti Shukla</div>
-          <div class="quest-tag">@SwastiShukla · YouTube · Vlogs &amp; Personal Content</div>
-          <p class="quest-body">A personal vlogging channel: day-in-the-life and lifestyle videos, shot and edited solo. Long-form's a different muscle from clipping podcast episodes, and this is where I keep it exercised.</p>
-          <a class="quest-link" href="https://www.youtube.com/@SwastiShukla" target="_blank" rel="noopener">View channel ↗</a>
-        </div>
-      </div>
-      <div class="quest">
-        <div class="quest-badge">SQ<br>03</div>
-        <div>
-          <div class="quest-title">Popcorn Theory</div>
-          <div class="quest-tag">@popcorn.theory · Movies, TV &amp; Pop Culture</div>
-          <p class="quest-body">A pop-culture page: movie and TV reviews, recommendations, and commentary on what's trending. Run as its own small brand, separate from my name and my client work.</p>
-          <a class="quest-link" href="https://www.instagram.com/popcorn.theory/" target="_blank" rel="noopener">View profile ↗</a>
-        </div>
-      </div>
-      <div class="quest">
-        <div class="quest-badge">SQ<br>04</div>
-        <div>
-          <div class="quest-title">Together With Kai</div>
-          <div class="quest-tag">Podcast &amp; Space Host · Mental Health</div>
-          <p class="quest-body">I host podcast episodes and live Space conversations on the Together With Kai platform, centred on mental health, and create UGC and social-first content across the brand's channels.</p>
-          <span class="quest-link" style="color:var(--muted)">Link slot — add the show page ↗</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="process">
     <div class="section-head">
       <div>
-        <p class="section-eyebrow">07 — How I Work</p>
+        <p class="section-eyebrow">05 — How I Work</p>
         <h2 class="section-title">Research To <em>Reach</em></h2>
       </div>
       <p class="section-side">The same four moves, whether it's an episode or a campaign.</p>
@@ -768,16 +695,15 @@ var LONGFORM = [
   }
 ];
 
-var SHORTS = [
-  { show:"Short form", tag:"Instagram · Reel", link:"https://www.instagram.com/reel/DcEOoUkJgZI/", image:"", hook:"" },
-  { show:"Short form", tag:"Instagram · Reel", link:"https://www.instagram.com/reel/DbcYUIzxm8n/", image:"", hook:"" },
-  { show:"Short form", tag:"Instagram · Reel", link:"https://www.instagram.com/reel/DZ_35VRRkxB/", image:"", hook:"" },
-  { show:"Short form", tag:"Instagram · Reel", link:"https://www.instagram.com/reel/DanT2FpphAb/", image:"", hook:"" }
-];
-
-var CAROUSELS = [
-  { show:"Carousel", tag:"Instagram · Carousel", link:"https://www.instagram.com/p/DajoIVHEQyU/", image:"", hook:"" },
-  { show:"Carousel", tag:"Instagram · Carousel", link:"https://www.instagram.com/p/DbzgOl3Eds3/", image:"", hook:"" }
+var SOCIAL = [
+  /* type is "reel" or "carousel". Put the show in `show` (SparX, DhyanHQ...)
+     and a one-line `hook` when you have one — both are optional. */
+  { type:"reel",     show:"", hook:"", image:"", link:"https://www.instagram.com/reel/DcEOoUkJgZI/" },
+  { type:"reel",     show:"", hook:"", image:"", link:"https://www.instagram.com/reel/DbcYUIzxm8n/" },
+  { type:"reel",     show:"", hook:"", image:"", link:"https://www.instagram.com/reel/DZ_35VRRkxB/" },
+  { type:"reel",     show:"", hook:"", image:"", link:"https://www.instagram.com/reel/DanT2FpphAb/" },
+  { type:"carousel", show:"", hook:"", image:"", link:"https://www.instagram.com/p/DajoIVHEQyU/" },
+  { type:"carousel", show:"", hook:"", image:"", link:"https://www.instagram.com/p/DbzgOl3Eds3/" }
 ];
 
 var CAMPAIGNS = [
@@ -904,8 +830,8 @@ var ONCAMERA = [
   }
 
   /* ---- thumbnail: real image > instagram tile > empty slot ---- */
-  function thumbHTML(item, kind, index){
-    var ratio = kind === "short" ? " ratio-vertical" : (kind === "carousel" ? " ratio-carousel" : "");
+  function thumbHTML(item, kind, index, label){
+    var ratio = kind === "social" ? " ratio-social" : "";
     var cls = "thumb" + ratio;
     var src = "", fallback = "";
     if (has(item.youtubeId)){
@@ -929,7 +855,7 @@ var ONCAMERA = [
 
     /* a real link but no screenshot yet — render a designed tile, not a gap */
     if (has(item.link)){
-      var kindLabel = kind === "carousel" ? "Carousel" : (kind === "camera" ? "On camera" : "Reel");
+      var kindLabel = label || (kind === "camera" ? "On camera" : "Reel");
       return '<div class="' + cls + '"><div class="ig-tile">' +
         '<div class="ig-top">' +
           '<span class="ig-glyph">' + IG_GLYPH + '</span>' +
@@ -943,14 +869,14 @@ var ONCAMERA = [
       '</div></div>';
     }
 
-    var label = kind === "long" || kind === "camera" ? "YouTube ID slot" : "Cover image slot";
+    var slotLabel = kind === "long" || kind === "camera" ? "YouTube ID slot" : "Cover image slot";
     var hint  = kind === "long" || kind === "camera"
       ? "Add youtubeId in the list at the bottom of index.html"
       : "Drop a 16:9 image in assets/campaigns/ and set image";
     return '<div class="' + cls + '">' +
       '<div class="slot">' +
         '<span class="slot-icon">🎬</span>' +
-        '<span class="slot-label">' + label + '</span>' +
+        '<span class="slot-label">' + slotLabel + '</span>' +
         '<span class="slot-hint">' + hint + '</span>' +
       '</div>' +
     '</div>';
@@ -1011,26 +937,25 @@ var ONCAMERA = [
   fill("programmeGrid", PROGRAMMES, "campaign");
   fill("cameraGrid",    ONCAMERA,   "camera");
 
-  /* ---- compact cards: shorts + carousels ---- */
-  function compact(id, list, kind){
-    var el = document.getElementById(id);
+  /* ---- instagram grid: reels and carousels together ---- */
+  (function(){
+    var el = document.getElementById("socialGrid");
     if (!el) return;
-    el.innerHTML = list.map(function(item, n){
+    el.innerHTML = SOCIAL.map(function(item, n){
+      var label = item.type === "carousel" ? "Carousel" : "Reel";
       var open  = has(item.link) ? '<a href="' + esc(item.link.trim()) + '" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block">' : '<div>';
       var close = has(item.link) ? '</a>' : '</div>';
       return '<article class="short-card">' + open +
-        thumbHTML(item, kind, n) +
+        thumbHTML(item, "social", n, label) +
         '<div class="short-body">' +
           (has(item.hook) ? '<div class="short-hook">' + esc(item.hook) + '</div>' : '') +
           '<div class="short-tag"' + (has(item.hook) ? '' : ' style="margin-top:0"') + '>' +
-            esc(item.show) + ' · ' + esc(item.tag) +
+            (has(item.show) ? esc(item.show) + ' · ' : '') + 'Instagram · ' + label +
           '</div>' +
         '</div>' +
       close + '</article>';
     }).join("");
-  }
-  compact("shortsGrid",   SHORTS,    "short");
-  compact("carouselGrid", CAROUSELS, "carousel");
+  })();
 
   /* ---- scroll progress ---- */
   var bar = document.getElementById("progress");

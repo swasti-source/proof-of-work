@@ -13,11 +13,10 @@ quietly skipped, so the page always looks finished while you fill it in.
 | List | Section on the page | What's in it now |
 |---|---|---|
 | `LONGFORM`   | 01 — Long Form  | 5 SparX episodes, live |
-| `SHORTS`     | 02 — Short Form | 4 Instagram reels, live |
-| `CAROUSELS`  | 03 — Carousels  | 2 Instagram carousels, live |
-| `PROGRAMMES` | 04 — Campaigns  | Headout, DhyanHQ, DiveIn |
-| `CAMPAIGNS`  | 04 — Campaigns  | 3 campaign reels, live |
-| `ONCAMERA`   | 05 — On Camera  | 1 YouTube + 2 reels, live |
+| `SOCIAL`     | 02 — Instagram  | 4 reels + 2 carousels, live |
+| `PROGRAMMES` | 03 — Campaigns  | Headout, DhyanHQ, DiveIn |
+| `CAMPAIGNS`  | 03 — Campaigns  | 3 campaign reels, live |
+| `ONCAMERA`   | 04 — On Camera  | 1 YouTube + 2 reels, live |
 | `STATS`      | The Reel        | the six-tile numbers grid |
 | `MARQUEE`    | scrolling strip | brands and skills |
 
@@ -34,17 +33,27 @@ automatically.
 
 ### Instagram items
 
+Reels and carousels live together in one `SOCIAL` list. `type` is `"reel"` or
+`"carousel"` and only changes the label on the tile — every card renders at the
+same 4:5 ratio so the grid stays even.
+
+```js
+{ type:"reel", show:"SparX", hook:"Counterintuitive stat in frame one.", image:"", link:"https://www.instagram.com/reel/XXXX/" }
+```
+
 Instagram does not expose thumbnails or captions to anyone who isn't logged in,
 so these cards render as a **designed tile** — clapperboard stripes, a big index
 number, and a "View on Instagram" cue — instead of a preview image.
 
-Two optional ways to make them richer:
+Three optional fields:
 
-1. **Add a hook line.** Set `hook: "Counterintuitive stat in frame one."` and it
-   appears on the tile and under the card. Leave it `""` and nothing breaks.
-2. **Add a real screenshot.** Save a frame from the reel into
-   `assets/shorts/` (9:16) or `assets/campaigns/` (16:9), then set
-   `image: "assets/shorts/01.jpg"`. The screenshot replaces the tile.
+- `show` — which show or brand it came from (SparX, DhyanHQ...). Shown before
+  the type: "SparX · Instagram · Reel". Leave `""` and it just reads
+  "Instagram · Reel".
+- `hook` — one line on what made someone stop scrolling. Appears on the tile
+  and under the card, and fills out the middle of the tile nicely.
+- `image` — a real screenshot. Save it into `assets/shorts/` and set
+  `image: "assets/shorts/01.jpg"`. The screenshot replaces the tile.
 
 ### Strategy breakdowns
 

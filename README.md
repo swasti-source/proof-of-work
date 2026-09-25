@@ -18,7 +18,7 @@ Everything you fill in lives in **one place**: the lists near the bottom of
 touching. Any field left as `""` either renders as a labelled slot or is
 quietly skipped, so the page always looks finished.
 
-All five lists feed the **archive**: four folders, built from the data.
+The lists feed the **archive**: five folders, built from the data.
 The "Open the archive" button in the hero deals them in; clicking a folder
 expands it below the row, and clicking it again closes it. A folder with no
 items in its list simply doesn't appear.
@@ -26,9 +26,10 @@ items in its list simply doesn't appear.
 | List | Group | What's in it now |
 |---|---|---|
 | `LONGFORM`   | Long form  | 5 SparX episodes, live |
-| `SOCIAL`     | Instagram  | 4 reels + 2 carousels, live |
+| `SOCIAL`     | Instagram  | 2 reels + 1 carousel, with screenshots |
 | `PROGRAMMES` | Campaigns  | Headout (linked), DhyanHQ (image), DiveIn |
 | `CAMPAIGNS`  | Campaigns  | empty — add individual posts here |
+| `UGC`        | UGC        | Drive folder of UGC video work |
 | `ONCAMERA`   | On camera  | 1 YouTube + 2 reels, live |
 | `STATS`      | —          | the six-tile numbers grid |
 | `MARQUEE`    | —          | the scrolling strip |

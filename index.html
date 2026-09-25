@@ -350,8 +350,9 @@
 
 
   /* ---------- folders ---------- */
-  .folders{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,2vw,22px); align-items:end; }
-  @media (max-width:880px){ .folders{ grid-template-columns:repeat(2,1fr); } }
+  .folders{ display:grid; grid-template-columns:repeat(5,1fr); gap:clamp(14px,2vw,22px); align-items:end; }
+  @media (max-width:1080px){ .folders{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:760px){ .folders{ grid-template-columns:repeat(2,1fr); } }
   @media (max-width:460px){ .folders{ grid-template-columns:1fr; } }
 
   .folder{ position:relative; display:block; width:100%; padding:0; border:none; background:none;
@@ -366,6 +367,7 @@
   .folders:not(.is-shut) .folder:nth-child(2){ transition-delay:130ms; }
   .folders:not(.is-shut) .folder:nth-child(3){ transition-delay:220ms; }
   .folders:not(.is-shut) .folder:nth-child(4){ transition-delay:310ms; }
+  .folders:not(.is-shut) .folder:nth-child(5){ transition-delay:400ms; }
 
   /* the sheets peeking out of the top of the folder */
   .folder-paper{ position:absolute; top:4px; left:9%; right:7%; height:30px; background:var(--card);
@@ -537,7 +539,7 @@
     <div class="section-head">
       <p class="section-eyebrow">Selected Work</p>
       <h2 class="section-title">Proof, <em>filed</em></h2>
-      <p class="section-sub">Four folders. Open one and it unpacks into the work — episodes, clips, campaigns and time on camera.</p>
+      <p class="section-sub">Five folders. Open one and it unpacks into the work — episodes, clips, campaigns, UGC and time on camera.</p>
     </div>
 
     <div class="folders is-shut" id="folders"></div>
@@ -663,18 +665,18 @@ var LONGFORM = [
 ];
 
 var SOCIAL = [
-  /* type is "reel" or "carousel". Put the show in `show` (SparX, DhyanHQ...)
-     and a one-line `hook` when you have one — both are optional. */
-  { type:"reel",     show:"", hook:"", image:"", link:"https://www.instagram.com/reel/DcEOoUkJgZI/" },
-  { type:"reel",     show:"", hook:"", image:"", link:"https://www.instagram.com/reel/DbcYUIzxm8n/" },
-  { type:"reel",     show:"", hook:"", image:"", link:"https://www.instagram.com/reel/DZ_35VRRkxB/" },
-  { type:"reel",     show:"", hook:"", image:"", link:"https://www.instagram.com/reel/DanT2FpphAb/" },
-  { type:"carousel", show:"", hook:"", image:"", link:"https://www.instagram.com/p/DajoIVHEQyU/" },
-  { type:"carousel", show:"", hook:"", image:"", link:"https://www.instagram.com/p/DbzgOl3Eds3/" }
+  /* type is "reel" or "carousel". `hook` becomes the card's title. */
+  { type:"reel", show:"SparX", image:"assets/shorts/01.jpg",
+    hook:"He did what SpaceX couldn't on the first try.",
+    link:"https://www.instagram.com/reel/DbcYUIzxm8n/" },
+  { type:"reel", show:"SparX", image:"assets/shorts/02.jpg",
+    hook:"SpaceX launches 3,000 satellites a year. India launches 60. This is the man trying to fix that.",
+    link:"https://www.instagram.com/reel/DanT2FpphAb/" },
+  { type:"carousel", show:"SparX", image:"assets/shorts/03.jpg",
+    hook:"Why does India need space startups if it already has ISRO?",
+    link:"https://www.instagram.com/p/DajoIVHEQyU/" }
 ];
 
-/* Individual campaign posts. Empty for now — the Campaigns group is carried
-   by PROGRAMMES below. Add entries here the same shape as PROGRAMMES. */
 var CAMPAIGNS = [];
 
 var PROGRAMMES = [
@@ -710,6 +712,17 @@ var PROGRAMMES = [
       "The brief": "Multi-category creator campaigns, run end-to-end for brands across the board.",
       "What I did": "", "The result": ""
     }
+  }
+];
+
+var UGC = [
+  {
+    show: "UGC · Brand & social",
+    title: "UGC video work",
+    image: "", link: "https://drive.google.com/drive/folders/16gQal1OEyYHPvqmVfhsh2_tQbpy09rTe",
+    metric: "",
+    role: "User-generated-content videos made for brand and social channels — shot, presented and cut to look native to the feed rather than like an ad. The full set lives in a Drive folder.",
+    breakdown: { "The brief": "", "What I did": "", "The result": "" }
   }
 ];
 
@@ -799,6 +812,10 @@ var ONCAMERA = [
     cat:"campaigns", title:i.title, meta:i.show, body:i.role, metric:i.metric,
     image:i.image, link:i.link, breakdown:i.breakdown, igLabel:"Reel", tags:["Campaign", "Creator marketing"]
   }); });
+  UGC.forEach(function(i){ ITEMS.push({
+    cat:"ugc", title:i.title, meta:i.show, body:i.role, metric:i.metric,
+    image:i.image, link:i.link, breakdown:i.breakdown, tags:["UGC", "Social-first"]
+  }); });
   ONCAMERA.forEach(function(i){ ITEMS.push({
     cat:"oncamera", title:i.title, meta:i.show, body:i.role, metric:i.metric,
     youtubeId:i.youtubeId, image:i.image, link:i.link, breakdown:i.breakdown,
@@ -810,6 +827,7 @@ var ONCAMERA = [
     { key:"longform",  label:"Long form" },
     { key:"instagram", label:"Instagram" },
     { key:"campaigns", label:"Campaigns" },
+    { key:"ugc",       label:"UGC" },
     { key:"oncamera",  label:"On camera" }
   ];
 
@@ -860,7 +878,9 @@ var ONCAMERA = [
       ? "https://www.youtube.com/watch?v=" + encodeURIComponent(item.youtubeId.trim())
       : (has(item.link) ? item.link.trim() : "");
     var label = has(item.youtubeId) ? "Watch on YouTube"
-              : (/instagram\.com/i.test(link) ? "View on Instagram" : "Visit site");
+              : /instagram\.com/i.test(link) ? "View on Instagram"
+              : /drive\.google\.com/i.test(link) ? "Open the folder"
+              : "Visit site";
     var titleFilled = has(item.title);
     var titleText = titleFilled ? item.title
       : (item.cat === "instagram" ? "Add a hook line for this one" : "Title slot — name the brand or the piece");

@@ -18,11 +18,13 @@ Everything you fill in lives in **one place**: the lists near the bottom of
 touching. Any field left as `""` either renders as a labelled slot or is
 quietly skipped, so the page always looks finished.
 
-All five lists feed **one Work section** with filter pills. The pills and
-their counts build themselves from the data — add an item and the count
-updates, empty a whole list and its pill disappears.
+All five lists feed **one Work section**, grouped by format into collapsible
+rows. The groups and their counts build themselves from the data — add an
+item and the count updates, empty a whole list and its row disappears.
+Everything starts collapsed so the page stays short and How I Work is
+reachable without a long scroll.
 
-| List | Filter pill | What's in it now |
+| List | Group | What's in it now |
 |---|---|---|
 | `LONGFORM`   | Long form  | 5 SparX episodes, live |
 | `SOCIAL`     | Instagram  | 4 reels + 2 carousels, live |
@@ -34,10 +36,15 @@ updates, empty a whole list and its pill disappears.
 
 ### The hero portrait
 
-Save a photo as **`assets/portrait.jpg`** and it drops straight into
-the frame — no code change. Until then the frame shows a labelled slot.
-Crop it to 3:4 (portrait) at 1000px wide or more. A cut-out PNG also works
-if you ever want the background removed.
+The hero uses a **background-removed cut-out**, sitting on the left with the
+name beside it. The file is `assets/portrait.webp` (820x1050, ~100KB).
+
+To swap it: save a new cut-out over that path, or point the `src` on the
+`portraitImg` element at any file you like. Until a file loads, the frame
+shows a labelled slot, so a missing image never breaks the layout.
+
+The current one was lifted from the studio photo with macOS's own Vision
+subject-masking — no paid service involved.
 
 ### YouTube items
 

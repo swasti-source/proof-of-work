@@ -26,19 +26,20 @@ items in its list simply doesn't appear.
 | List | Group | What's in it now |
 |---|---|---|
 | `LONGFORM`   | Long form  | 5 SparX episodes, live |
-| `SOCIAL`     | Instagram  | 2 reels + 1 carousel, with screenshots |
+| `SOCIAL`     | Instagram  | 2 reels + 1 carousel, screenshots + engagement |
 | `PROGRAMMES` | Campaigns  | Headout (linked), DhyanHQ (image), DiveIn |
 | `CAMPAIGNS`  | Campaigns  | empty — add individual posts here |
-| `UGC`        | UGC        | Drive folder of UGC video work |
+| `UGC`        | UGC        | 10 videos, one card each |
 | `ONCAMERA`   | On camera  | 1 YouTube + 2 reels, live |
 | `STATS`      | —          | the six-tile numbers grid |
 | `MARQUEE`    | —          | the scrolling strip |
 
 ### The hero portrait
 
-`assets/portrait.jpg` — a 4:5 photo, mic included, shown in a framed panel
-beside the greeting. Replace that file to change it; until one loads, the
-frame shows a labelled slot, so a missing image never breaks the layout.
+`assets/portrait.webp` — a background-removed cut-out with the mic, sitting
+to the right of the greeting so the mic runs out toward the page margin.
+Replace that file to change it; until one loads, the frame shows a labelled
+slot, so a missing image never breaks the layout.
 
 ### YouTube items
 
@@ -67,6 +68,8 @@ render as a designed tile — stripes, a big index numeral, a view cue.
 - `hook` — one line on what made someone stop scrolling. This becomes the
   card's title, so it's the highest-value thing to fill in.
 - `image` — a real screenshot in `assets/shorts/`. Replaces the tile.
+- `stats` — engagement, e.g. `"1.2K likes · 45 shares"`. Shown in gold under
+  the hook. Leave `""` to hide the line.
 
 ### Strategy breakdowns
 

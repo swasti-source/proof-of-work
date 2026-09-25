@@ -207,7 +207,7 @@
 
   /* ---------- hero ---------- */
   .hero{ padding:clamp(34px,5vw,58px) 0 clamp(30px,4.4vw,52px); }
-  .hero-grid{ display:grid; grid-template-columns:auto minmax(0,1fr); gap:clamp(26px,4.5vw,64px); align-items:center; }
+  .hero-grid{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:clamp(26px,4.5vw,64px); align-items:center; }
   @media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; text-align:center; justify-items:center; } }
   h1.name{ font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(29px,3.9vw,52px);
     line-height:1.16; letter-spacing:-.018em; color:var(--ink-2); }
@@ -219,12 +219,19 @@
   .role-line .cursor{ color:var(--gold); }
   .hero-note{ margin-top:16px; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
 
-  .portrait{ position:relative; width:clamp(240px,31vw,384px); justify-self:center; }
-  .portrait-inner{ position:relative; z-index:1; aspect-ratio:4/5; overflow:hidden;
-    background:var(--purple-soft); box-shadow:var(--shadow); }
-  .portrait-inner img{ width:100%; height:100%; object-fit:cover; }
-  .portrait-slot{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; gap:8px; text-align:center; padding:20px; }
+  .portrait{ position:relative; width:clamp(270px,36vw,450px); justify-self:end; }
+  @media (max-width:900px){ .portrait{ justify-self:center; order:-1; } }
+  /* soft ground so the cut-out isn't floating on nothing */
+  .portrait::before{
+    content:""; position:absolute; left:46%; top:-6%; transform:translateX(-50%);
+    width:104%; aspect-ratio:1; border-radius:999px; z-index:0;
+    background:radial-gradient(circle, var(--purple-soft) 0%, transparent 65%);
+  }
+  .portrait-inner{ position:relative; z-index:1; }
+  .portrait-inner img{ width:100%; height:auto; filter:drop-shadow(0 24px 34px rgba(0,0,0,.26)); }
+  .portrait-slot{ position:relative; aspect-ratio:4/5; background:var(--purple-soft);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    text-align:center; padding:20px; border:1.5px dashed var(--line-2); }
   .portrait-slot .pl{ font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:700; }
   .portrait-slot .ph{ font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--muted); line-height:1.5; max-width:20ch; }
   .arch{ position:absolute; color:var(--purple); opacity:.42; pointer-events:none; }
@@ -346,7 +353,9 @@
   .itile-meta{ font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.13em; text-transform:uppercase; color:rgba(243,239,230,.55); }
   .itile-title{ margin-top:7px; font-family:'Playfair Display',serif; font-size:15.5px; line-height:1.4; color:var(--deep-ink); }
   .itile-title.is-empty{ font-style:italic; opacity:.45; }
-  .itile-cue{ margin-top:11px; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); font-weight:700; }
+  .itile-stats{ margin-top:10px; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--gold); font-weight:700; }
+  .itile-cue{ margin-top:9px; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); font-weight:700; }
 
 
   /* ---------- folders ---------- */
@@ -487,6 +496,18 @@
 <div class="shell">
   <header class="hero" id="hero">
     <div class="hero-grid">
+      <div class="hero-text">
+        <h1 class="name">Hi, this is <span class="hl">Swasti Shukla</span></h1>
+        <div class="roles">
+          <div class="role-line" id="roleLine">Strategist<span class="cursor">.</span></div>
+        </div>
+        <p class="hero-note">Creative &amp; Growth · Since 2019</p>
+        <p class="hero-blurb">Seven years across brand, podcast, and creator marketing. I own end-to-end creative and growth strategy for <strong>SparX</strong>, a deep-tech podcast by Mukesh Bansal with 1M+ subscribers, under <strong>Meraki Labs</strong>.</p>
+        <div class="hero-cta">
+          <button class="btn btn-start" type="button" id="startBtn"><span class="tri">▶</span> Proof of work</button>
+          <a class="btn btn-ghost" href="https://swasti-source.github.io/swasti_resume/" target="_blank" rel="noopener">Résumé ↗</a>
+        </div>
+      </div>
       <div class="portrait">
         <svg class="arch arch-l" viewBox="0 0 60 150" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
           <path d="M6 148V46a24 24 0 0 1 48 0v102"/><path d="M13 148V48a17 17 0 0 1 34 0v100"/>
@@ -497,28 +518,16 @@
           <path d="M20 148V50a10 10 0 0 1 20 0v98"/><circle cx="30" cy="26" r="4"/>
         </svg>
         <div class="portrait-inner">
-          <img id="portraitImg" src="assets/portrait.jpg" alt="Swasti Shukla" style="display:none"
+          <img id="portraitImg" src="assets/portrait.webp" alt="Swasti Shukla" style="display:none"
                onload="this.style.display='block'; var s=document.getElementById('portraitSlot'); if(s) s.remove();"
                onerror="this.remove();">
           <div class="portrait-slot" id="portraitSlot">
             <span class="pl">Portrait slot</span>
-            <span class="ph">Save a 4:5 photo as assets/portrait.jpg</span>
+            <span class="ph">Save a cut-out as assets/portrait.webp</span>
           </div>
         </div>
       </div>
 
-      <div class="hero-text">
-        <h1 class="name">Hi, this is <span class="hl">Swasti Shukla</span></h1>
-        <div class="roles">
-          <div class="role-line" id="roleLine">Strategist<span class="cursor">.</span></div>
-        </div>
-        <p class="hero-note">Creative &amp; Growth · Since 2019</p>
-        <p class="hero-blurb">Seven years across brand, podcast, and creator marketing. I own end-to-end creative and growth strategy for <strong>SparX</strong>, a deep-tech podcast by Mukesh Bansal with 1M+ subscribers, under <strong>Meraki Labs</strong>.</p>
-        <div class="hero-cta">
-          <button class="btn btn-start" type="button" id="startBtn"><span class="tri">▶</span> Open the archive</button>
-          <a class="btn btn-ghost" href="https://swasti-source.github.io/swasti_resume/" target="_blank" rel="noopener">Résumé ↗</a>
-        </div>
-      </div>
     </div>
   </header>
 </div>
@@ -665,14 +674,15 @@ var LONGFORM = [
 ];
 
 var SOCIAL = [
-  /* type is "reel" or "carousel". `hook` becomes the card's title. */
-  { type:"reel", show:"SparX", image:"assets/shorts/01.jpg",
+  /* type is "reel" or "carousel". `hook` becomes the card's title.
+     `stats` shows under it — leave "" to hide the line. */
+  { type:"reel", show:"SparX", image:"assets/shorts/01.jpg", stats:"352 likes · 9 shares",
     hook:"He did what SpaceX couldn't on the first try.",
     link:"https://www.instagram.com/reel/DbcYUIzxm8n/" },
-  { type:"reel", show:"SparX", image:"assets/shorts/02.jpg",
+  { type:"reel", show:"SparX", image:"assets/shorts/02.jpg", stats:"298 likes · 14 shares",
     hook:"SpaceX launches 3,000 satellites a year. India launches 60. This is the man trying to fix that.",
     link:"https://www.instagram.com/reel/DanT2FpphAb/" },
-  { type:"carousel", show:"SparX", image:"assets/shorts/03.jpg",
+  { type:"carousel", show:"SparX", image:"assets/shorts/03.jpg", stats:"1.2K likes · 45 shares",
     hook:"Why does India need space startups if it already has ISRO?",
     link:"https://www.instagram.com/p/DajoIVHEQyU/" }
 ];
@@ -683,7 +693,7 @@ var PROGRAMMES = [
   {
     show: "Headout · 2024–26",
     title: "Headout for Creators",
-    image: "", link: "https://creators.headout.com/",
+    image: "assets/campaigns/headout.jpg", link: "https://creators.headout.com/",
     metric: "1L+ creators",
     role: "Launched the creator programme inside brand marketing, acquiring 100,000+ travel creators in the first two months, then ran seasonal and holiday campaigns off it.",
     breakdown: {
@@ -705,7 +715,7 @@ var PROGRAMMES = [
   {
     show: "DiveIn Media · 2022–24",
     title: "Influencer campaigns, 15+ brands",
-    image: "", link: "",
+    image: "assets/campaigns/divein.jpg", link: "https://diveinmedia.in/",
     metric: "15+ brands",
     role: "Designed and executed influencer-led strategies across Instagram, YouTube and X, largely for D2C brands — Kapiva, Disney, Puer, Baidyanath and Oliva among them. Owned campaigns from ideation and creator selection through execution, reporting and optimisation, and led the team running them.",
     breakdown: {
@@ -715,15 +725,39 @@ var PROGRAMMES = [
   }
 ];
 
+/* One card per UGC video. `role` and `image` are optional — add a line or a
+   still whenever you want; the folder link lives in the section copy. */
 var UGC = [
-  {
-    show: "UGC · Brand & social",
-    title: "UGC video work",
-    image: "", link: "https://drive.google.com/drive/folders/16gQal1OEyYHPvqmVfhsh2_tQbpy09rTe",
-    metric: "",
-    role: "User-generated-content videos made for brand and social channels — shot, presented and cut to look native to the feed rather than like an ad. The full set lives in a Drive folder.",
-    breakdown: { "The brief": "", "What I did": "", "The result": "" }
-  }
+  { show:"UGC · Brand & social", title:"Aramya", image:"", metric:"",
+    link:"https://drive.google.com/file/d/1ox9ClXouRTwhe5QgpGp6npaSvHKh2bph/view",
+    role:"", breakdown:{} },
+  { show:"UGC · Brand & social", title:"Ethera", image:"", metric:"",
+    link:"https://drive.google.com/file/d/1rnajtIzx9dm95Ox66NGhzem79fVthIXf/view",
+    role:"", breakdown:{} },
+  { show:"UGC · Brand & social", title:"Lux", image:"", metric:"",
+    link:"https://drive.google.com/file/d/1y5PHQlieyK6HpkRIftsXw2QAvqnzVx8Y/view",
+    role:"", breakdown:{} },
+  { show:"UGC · Brand & social", title:"Zoul", image:"", metric:"",
+    link:"https://drive.google.com/file/d/1SyTweHfMas-ZSdi000lIH3TGfjSKYr5I/view",
+    role:"", breakdown:{} },
+  { show:"UGC · Brand & social", title:"Sapphire — hiring film", image:"", metric:"",
+    link:"https://drive.google.com/file/d/18hn7OsG2JOXMD_gym0p28y4kt4BlCUuz/view",
+    role:"", breakdown:{} },
+  { show:"UGC · Brand & social", title:"Friendship — Together With Kai", image:"", metric:"",
+    link:"https://drive.google.com/file/d/1bQcpVHzj8tHirZksbUSjEEaXT0BjBQEx/view",
+    role:"", breakdown:{} },
+  { show:"UGC · Brand & social", title:"Men and Anger", image:"", metric:"",
+    link:"https://drive.google.com/file/d/1XSPgcgQvKiJyX5aDtOd1_Up7Y8xBtMyp/view",
+    role:"", breakdown:{} },
+  { show:"UGC · Brand & social", title:"Walk Away", image:"", metric:"",
+    link:"https://drive.google.com/file/d/1HVVNbgqhTfJRQNihp2dTykXmEUrdIOHu/view",
+    role:"", breakdown:{} },
+  { show:"UGC · Brand & social", title:"Giveaway", image:"", metric:"",
+    link:"https://drive.google.com/file/d/137pedClB4ji3-mLcMoiET3KWLvsqIED3/view",
+    role:"", breakdown:{} },
+  { show:"UGC · Brand & social", title:"Entropy — draft", image:"", metric:"",
+    link:"https://drive.google.com/file/d/1h07Qf8AN4yYgta4tQcfK5vQ3LNa1FI8P/view",
+    role:"", breakdown:{} },
 ];
 
 var ONCAMERA = [
@@ -800,7 +834,7 @@ var ONCAMERA = [
     var label = i.type === "carousel" ? "Carousel" : "Reel";
     ITEMS.push({
       cat:"instagram", title:i.hook, meta:(has(i.show) ? i.show + " · " : "") + "Instagram · " + label,
-      body:"", image:i.image, link:i.link, igLabel:label,
+      body:"", image:i.image, link:i.link, igLabel:label, stats:i.stats,
       tags:["Short form", label]
     });
   });
@@ -879,6 +913,7 @@ var ONCAMERA = [
       : (has(item.link) ? item.link.trim() : "");
     var label = has(item.youtubeId) ? "Watch on YouTube"
               : /instagram\.com/i.test(link) ? "View on Instagram"
+              : /drive\.google\.com\/file\//i.test(link) ? "Watch the video"
               : /drive\.google\.com/i.test(link) ? "Open the folder"
               : "Visit site";
     var titleFilled = has(item.title);
@@ -916,7 +951,10 @@ var ONCAMERA = [
         '<div class="itile-meta">' + esc(item.meta) + '</div>' +
         '<div class="itile-title' + (titleFilled ? '' : ' is-empty') + '">' +
           esc(titleFilled ? item.title : "Add a hook line") + '</div>' +
-        (link ? '<div class="itile-cue">View on Instagram ↗</div>' : '') +
+        (has(item.stats) ? '<div class="itile-stats">' + esc(item.stats) + '</div>' : '') +
+        (link ? '<div class="itile-cue">' +
+            (/instagram\.com/i.test(link) ? "View on Instagram"
+             : /drive\.google\.com/i.test(link) ? "Watch the video" : "View") + ' ↗</div>' : '') +
       '</div>' + close;
   }
 
@@ -964,7 +1002,8 @@ var ONCAMERA = [
     var items = itemsIn(key);
     current = key;
     openTitle.innerHTML = esc(cat.label) + '<span>' + items.length + ' items</span>';
-    openBody.innerHTML = key === "instagram"
+    var asGrid = key === "instagram" || key === "ugc";
+    openBody.innerHTML = asGrid
       ? '<div class="ig-grid">' + items.map(function(it, n){ return tileHTML(it, n + 1); }).join("") + '</div>'
       : items.map(function(it, n){ return cardHTML(it, n + 1); }).join("");
     openEl.hidden = false;

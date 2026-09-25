@@ -28,8 +28,8 @@ reachable without a long scroll.
 |---|---|---|
 | `LONGFORM`   | Long form  | 5 SparX episodes, live |
 | `SOCIAL`     | Instagram  | 4 reels + 2 carousels, live |
-| `PROGRAMMES` | Campaigns  | Headout, DhyanHQ, DiveIn |
-| `CAMPAIGNS`  | Campaigns  | 3 campaign reels, live |
+| `PROGRAMMES` | Campaigns  | Headout (linked), DhyanHQ (image), DiveIn |
+| `CAMPAIGNS`  | Campaigns  | empty — add individual posts here |
 | `ONCAMERA`   | On camera  | 1 YouTube + 2 reels, live |
 | `STATS`      | —          | the six-tile numbers grid |
 | `MARQUEE`    | —          | the scrolling strip |

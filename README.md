@@ -34,9 +34,10 @@ updates, empty a whole list and its pill disappears.
 
 ### The hero portrait
 
-Save a cut-out photo as **`assets/portrait.png`** and it drops straight into
+Save a photo as **`assets/portrait.jpg`** and it drops straight into
 the frame — no code change. Until then the frame shows a labelled slot.
-A transparent PNG works best; roughly 3:4, at least 600px wide.
+Crop it to 3:4 (portrait) at 1000px wide or more. A cut-out PNG also works
+if you ever want the background removed.
 
 ### YouTube items
 

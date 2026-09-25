@@ -18,11 +18,10 @@ Everything you fill in lives in **one place**: the lists near the bottom of
 touching. Any field left as `""` either renders as a labelled slot or is
 quietly skipped, so the page always looks finished.
 
-All five lists feed **one Work section**, grouped by format into collapsible
-rows. The groups and their counts build themselves from the data — add an
-item and the count updates, empty a whole list and its row disappears.
-Everything starts collapsed so the page stays short and How I Work is
-reachable without a long scroll.
+All five lists feed the **archive**: four folders, built from the data.
+The "Open the archive" button in the hero deals them in; clicking a folder
+expands it below the row, and clicking it again closes it. A folder with no
+items in its list simply doesn't appear.
 
 | List | Group | What's in it now |
 |---|---|---|
@@ -36,15 +35,9 @@ reachable without a long scroll.
 
 ### The hero portrait
 
-The hero uses a **background-removed cut-out**, sitting on the left with the
-name beside it. The file is `assets/portrait.webp` (820x1050, ~100KB).
-
-To swap it: save a new cut-out over that path, or point the `src` on the
-`portraitImg` element at any file you like. Until a file loads, the frame
-shows a labelled slot, so a missing image never breaks the layout.
-
-The current one was lifted from the studio photo with macOS's own Vision
-subject-masking — no paid service involved.
+`assets/portrait.jpg` — a 4:5 photo, mic included, shown in a framed panel
+beside the greeting. Replace that file to change it; until one loads, the
+frame shows a labelled slot, so a missing image never breaks the layout.
 
 ### YouTube items
 
